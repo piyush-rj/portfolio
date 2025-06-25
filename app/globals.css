@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f2faff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #ffd4d450, #fef6c02a, #c7f5ff3f, #ffe0f041);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.animated-vertical-border {
+  position: relative;
+}
+
+.animated-vertical-border::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #ffd4d4,
+    #fef6c0,
+    #c7f5ff,
+    #ffe0f0,
+    #ffd4d4
+  );
+  background-size: 100% 300%;
+  animation: scrollGradient 8s linear infinite;
+  border-radius: 2px;
+}
+
+@keyframes scrollGradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
