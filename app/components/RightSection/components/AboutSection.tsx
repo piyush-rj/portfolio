@@ -7,15 +7,17 @@ import Link from "next/link";
 interface AboutSectionProps {
   onHover: () => void;
   onLeave: () => void;
+  onClick?: () => void;
 }
 
-export default function AboutSection({ onHover, onLeave }: AboutSectionProps) {
+export default function AboutSection({ onHover, onLeave, onClick }: AboutSectionProps) {
   const { theme } = useTheme();
 
   return (
     <div
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
+      onClick={onClick}
       className="text-black flex justify-center items-center h-full w-full overflow-visible relative"
     >
       <div className="h-[190px] w-[500px] flex flex-col justify-between p-4">

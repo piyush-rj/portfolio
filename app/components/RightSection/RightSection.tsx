@@ -1,19 +1,19 @@
 "use client";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import Image from "next/image";
-
 import AboutSection from "./components/AboutSection";
 import Education from "./components/Education";
 import Project from "./components/Project";
 import TechStack from "./components/TechStack";
 import WorkExperience from "./components/WorkExperience";
+import ProjectSection from "./components/ProjectSection";
+import { useRef } from "react";
+import gsap from "gsap"
 
 interface RightSectionProps {
     selected: string | null;
 }
 
 export default function RightSection({ selected }: RightSectionProps) {
+
     const imageRef = useRef<HTMLDivElement>(null);
 
     const handleAboutHover = () => {
@@ -38,34 +38,17 @@ export default function RightSection({ selected }: RightSectionProps) {
         });
     };
 
-    useEffect(() => {
-        gsap.set(imageRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            y: -20,
-            pointerEvents: "none",
-        });
-    }, []);
-
     return (
         <div className="h-full w-[75%] p-8 pb-20 ml-2 animated-vertical-border relative">
-            {/* Floating profile picture */}
-            <div
-                ref={imageRef}
-                className="fixed top-[400px] left-2/3 -translate-x-1/2 rounded-full overflow-hidden shadow-xl border-4 border-white z-[9999] w-[150px] h-[150px]"
-            >
-                <Image
-                    src="/pfp.jpg"
-                    alt="Pop-up Profile"
-                    fill
-                    className="object-cover"
-                    unoptimized
-                />
-            </div>
-
             {selected === "About" && (
                 <div className="h-full w-full">
                     <AboutSection onHover={handleAboutHover} onLeave={handleAboutLeave} />
+                </div>
+            )}
+
+            {selected === "Projects" && (
+                <div className="h-full w-full">
+                    <ProjectSection />
                 </div>
             )}
 
@@ -125,11 +108,11 @@ export default function RightSection({ selected }: RightSectionProps) {
                 </div>
             )}
 
-            {selected === "Education" && (
+            {/* {selected === "Education" && (
                 <div className="w-full h-full">
                     <Education />
                 </div>
-            )}
+            )} */}
         </div>
     );
 }

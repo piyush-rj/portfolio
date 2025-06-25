@@ -1,101 +1,92 @@
-'use client';
-import { motion, easeOut } from "framer-motion";
+"use client";
+import { useRef } from "react";
+import gsap from "gsap";
 
-const containerVariant = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
+interface Logos {
+  name: string;
+  url: string | React.ReactNode;
+}
 
-const cardVariant = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: easeOut }
-  },
-};
-
-const badgeVariant = {
-  hidden: { opacity: 0, scale: 0.8 },
-  show: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.3, ease: easeOut }
-  },
-};
+const logos: Logos[] = [
+  { name: "typescript", url: "https://img.icons8.com/?size=100&id=nCj4PvnCO0tZ&format=png" },
+  { name: "javascript", url: "https://img.icons8.com/?size=100&id=RwtOBojoLS2N&format=png" },
+  { name: "java", url: "https://img.icons8.com/?size=100&id=FBycNmdwUQz1&format=png" },
+  { name: "figma", url: "https://img.icons8.com/?size=100&id=snB4bDeuO6gJ&format=png" },
+  { name: "nodeJS", url: "https://img.icons8.com/?size=100&id=54087&format=png" },
+  { name: "expressJS", url: "https://img.icons8.com/?size=100&id=SDVmtZ6VBGXt&format=png" },
+  { name: "reactJS", url: "https://img.icons8.com/?size=100&id=NfbyHexzVEDk&format=png" },
+  { name: "nextJS", url: "https://img.icons8.com/?size=100&id=MWiBjkuHeMVq&format=png" },
+  { name: "prisma ORM", url: "https://img.icons8.com/?size=100&id=aqb9SdV9P8oC&format=png" },
+  { name: "mongoDB", url: "https://img.icons8.com/?size=100&id=bosfpvRzNOG8&format=png" },
+  { name: "postgreSQL", url: "https://img.icons8.com/?size=100&id=38561&format=png" },
+  { name: "docker", url: "https://img.icons8.com/?size=100&id=cdYUlRaag9G9&format=png" },
+  { name: "git", url: "https://img.icons8.com/?size=100&id=20906&format=png" },
+  { name: "github", url: "https://img.icons8.com/?size=100&id=62856&format=png" },
+  { name: "postman", url: "https://img.icons8.com/?size=100&id=EPbEfEa7o8CB&format=png" },
+  { name: "Turborepo", url: "/icons/Turborepo.svg" },
+  { name: "TailwindCSS", url: "/icons/Tailwindcss.svg" },
+  { name: "WebSocker", url: "/icons/Websocket.svg" }
+];
 
 export default function TechStack() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleAnimation = (el: HTMLDivElement | null) => {
+    if (!el) return;
+    const logos = el.querySelectorAll(".logo");
+
+    gsap.fromTo(
+      logos,
+      {
+        opacity: 0,
+        y: 20,
+        scale: 0.9,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        stagger: 0.07,
+        duration: 0.4,
+        ease: "power3.out",
+        delay: 0.2,
+      }
+    );
+  };
+
   return (
-    <motion.div
-      className="w-full h-full flex flex-col items-center justify-start px-6 py-16 font-sans space-y-12 "
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={containerVariant}
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-[950px]">
-
-        <TechHeading
-          title="Programming Languages"
-          items={["Java", "JavaScript", "TypeScript"]}
-        />
-
-        <TechHeading
-          title="Libraries & Frameworks"
-          items={["React", "Next.js", "Node.js", "Turbo", "Prisma ORM", "Zod", "Express", "JWT"]}
-        />
-
-        <TechHeading
-          title="Databases"
-          items={["MongoDB", "SQL", "PostgreSQL"]}
-        />
-
-        <TechHeading
-          title="Tools"
-          items={["Git", "GitHub", "Postman", "Vercel", "Docker"]}
-        />
-
-      </div>
-    </motion.div>
-  );
-}
-
-function TechHeading({ title, items }: { title: string; items: string[] }) {
-  return (
-    <motion.div
-      className="bg-gradient-to-br from-[#1a2727] to-[#201420]  backdrop-blur-md border border-neutral-800 rounded-2xl shadow-lg p-4 md:p-8 transition-shadow hover:shadow-xl"
-      variants={cardVariant}
-    >
-      <h2 className="text-center text-[20px] md:text-xl font-semibold text-neutral-300 uppercase mb-6 tracking-wide">
-        {title}
+    <div className="w-full h-full flex flex-col items-center justify-start px-4 sm:px-6 py-16 font-sans">
+      <h2 className="text-2xl sm:text-3xl font-bold text-neutral-200 mb-10 uppercase tracking-wider text-center">
+        Tech Stack
       </h2>
-      <motion.div
-        className="flex flex-wrap gap-3 justify-center"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        variants={containerVariant}
-      >
-        {items.map((text, i) => (
-          <TechBadge key={i} text={text} />
-        ))}
-      </motion.div>
-    </motion.div>
-  );
-}
 
-function TechBadge({ text }: { text: string }) {
-  return (
-    <motion.span
-      className="px-4 py-2 text-sm font-medium rounded-full border border-neutral-300 text-neutral-700 bg-neutral-100 hover:bg-neutral-200  shadow-xl transition-all duration-200"
-      variants={badgeVariant}
-      whileHover={{ scale: 1.06 }}
-    >
-      {text}
-    </motion.span>
+      <div
+        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 md:gap-8 place-items-center max-w-[1100px]"
+        ref={(el) => {
+          containerRef.current = el;
+          handleAnimation(el);
+        }}
+      >
+        {logos.map((tech, i) => (
+          <div
+            key={tech.name + i}
+            className="logo w-[60px] h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-xl p-2 flex items-center justify-center
+              bg-neutral-900 border border-neutral-800 shadow-inner hover:shadow-xl transition-all hover:scale-110"
+          >
+            {typeof tech.url === "string" ? (
+              <img
+                src={tech.url}
+                alt={tech.name}
+                className="w-full h-full object-contain"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-white text-sm">
+                {tech.url}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
