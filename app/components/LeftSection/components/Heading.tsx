@@ -39,7 +39,7 @@ export default function Heading({ text, tooltip, onClick, onMouseEnter, onMouseL
             }}
             onMouseMove={handleMouseMove}
             className={`group relative flex justify-between items-center border border-black/5 shadow-md mb-2 px-4 py-2 text-[20px] font-semibold rounded-[10px] mt-2
-         ${theme == "dark" ? "bg-neutral-100 text-neutral-800" : "bg-transparent text-black"}`}
+         ${theme == "dark" ? "bg-neutral-200 text-neutral-800" : "bg-transparent text-black"}`}
         >
 
             {hovered && (

@@ -13,8 +13,11 @@ const config: Config = {
         primary: {
           bg: 'rgb(var(--bg-primary) / <alpha-value>)',
           text: 'rgb(var(--text-primary) / <alpha-value>)',
-        }
-      }
+        },
+      },
+      fontFamily: {
+        caveat: ['var(--font-caveat)'],
+      },
     },
   },
   plugins: [],

@@ -1,90 +1,38 @@
 "use client";
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
 export default function BookAMeet() {
-    const iconRef = useRef<HTMLDivElement>(null);
-    const arrowRef = useRef<SVGSVGElement>(null);
-    const wrapperRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (!iconRef.current || !arrowRef.current || !wrapperRef.current) return;
-
-        const icon = iconRef.current;
-        const arrow = arrowRef.current;
-        const wrapper = wrapperRef.current;
-
-        const onEnter = () => {
-            gsap.fromTo(
-                icon,
-                { rotation: -4 },
-                {
-                    rotation: 4,
-                    duration: 0.1,
-                    repeat: 5,
-                    yoyo: true,
-                    ease: "power1.inOut",
-                }
-            );
-            gsap.to(arrow, {
-                x: 6,
-                y: -4,
-                duration: 0.3,
-                ease: "power2.out",
-            });
-        };
-
-        const onLeave = () => {
-            gsap.to(icon, {
-                rotation: 0,
-                duration: 0.2,
-                ease: "power1.inOut",
-            });
-            gsap.to(arrow, {
-                x: 0,
-                y: 0,
-                duration: 0.3,
-                ease: "power2.inOut",
-            });
-        };
-
-        wrapper.addEventListener("mouseenter", onEnter);
-        wrapper.addEventListener("mouseleave", onLeave);
-
-        return () => {
-            wrapper.removeEventListener("mouseenter", onEnter);
-            wrapper.removeEventListener("mouseleave", onLeave);
-        };
-    }, []);
-
     return (
         <div
-            ref={wrapperRef}
-            className="flex items-center gap-4 px-1 py-3 rounded-xl transition-all shadow-md hover:shadow-xl cursor-pointer group"
+            className="relative flex items-center gap-4 px-1 py-3 rounded-xl transition-all shadow-md hover:shadow-xl cursor-pointer group"
             onClick={() => window.open("https://meet.google.com/", "_blank")}
         >
-            <div
-                ref={iconRef}
-                className="w-[40px] h-[40px] flex items-center justify-center"
-            >
+            {/* Icon container */}
+            <div className="relative w-[40px] h-[40px] flex items-center justify-center overflow-visible">
+                {/* Google Meet Icon */}
                 <Image
                     src="/icons/GoogleMeet.svg"
                     alt="Google Meet"
                     width={32}
                     height={32}
-                    className="object-contain"
+                    className="object-contain z-10"
                 />
+
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out whitespace-nowrap">
+                    <span className="text-md pl-6 leading-none bg-black/80 text-white px-3 py-1 rounded-full">
+                        <span className="text-yellow-400">BOOK</span> <span className="text-yellow-400">A</span> <span className="text-yellow-400">MEET</span>
+                    </span>
+                </div>
+
+                {/* Tooltip above */}
+                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-black text-xs font-medium px-2 py-1 rounded shadow-md whitespace-nowrap">
+                    Google Meet
+                </div>
             </div>
 
-            <div className="flex items-center gap-2 text-neutral-200 group-hover:text-white text-lg font-normal tracking-wide">
-                BOOK A MEET
-                <ArrowUpRight
-                    ref={arrowRef}
-                    className="w-4 h-4 opacity-0 group-hover:opacity-80 transition-opacity"
-                />
-            </div>
+            {/* Arrow icon only */}
+            <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-80 transition-opacity text-white" />
         </div>
     );
 }

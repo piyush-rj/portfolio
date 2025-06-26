@@ -10,7 +10,7 @@ export default function MainSection() {
     const active = hovered ?? selected;
 
     return (
-        <div className="h-[80%] w-[80%] relative flex">
+        <div className="h-[80%] w-[80%] relative flex justify-center ">
             <LeftSection
                 onSelect={(item) => {
                     if (item === "About" || item === "Projects" || item == "Tech Stack") {
