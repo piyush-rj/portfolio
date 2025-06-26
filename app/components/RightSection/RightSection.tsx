@@ -13,7 +13,6 @@ interface RightSectionProps {
 }
 
 export default function RightSection({ selected }: RightSectionProps) {
-
     const imageRef = useRef<HTMLDivElement>(null);
 
     const handleAboutHover = () => {
@@ -39,21 +38,23 @@ export default function RightSection({ selected }: RightSectionProps) {
     };
 
     return (
-        <div className="h-full w-[75%] p-8 pb-20 ml-2 animated-vertical-border relative">
+        <div
+            className="w-full sm:w-[75%] h-full flex z-[99] px-4 sm:px-8 pb-28 sm:pb-20 ml-0 sm:ml-2 overflow-y-auto animated-vertical-border relative"
+        >
             {selected === "About" && (
-                <div className="h-full w-full">
+                <div className="w-full h-full">
                     <AboutSection onHover={handleAboutHover} onLeave={handleAboutLeave} />
                 </div>
             )}
 
             {selected === "Projects" && (
-                <div className="h-full w-full">
+                <div className="w-full h-full">
                     <ProjectSection />
                 </div>
             )}
 
             {selected === "ByteWords" && (
-                <div className="h-full w-full">
+                <div className="w-full h-full">
                     <Project
                         title="ByteWords"
                         brief="A Blogging website"
@@ -64,7 +65,7 @@ export default function RightSection({ selected }: RightSectionProps) {
             )}
 
             {selected === "PayTM" && (
-                <div className="h-full w-full">
+                <div className="w-full h-full">
                     <Project
                         title="PayTM"
                         brief="Online UPI Web-app"
@@ -75,7 +76,7 @@ export default function RightSection({ selected }: RightSectionProps) {
             )}
 
             {selected === "SolDrop" && (
-                <div className="h-full w-full">
+                <div className="w-full h-full">
                     <Project
                         title="SolDrop"
                         brief="Faucet for Solana"
@@ -86,7 +87,7 @@ export default function RightSection({ selected }: RightSectionProps) {
             )}
 
             {selected === "HD-Wallet" && (
-                <div className="h-full w-full">
+                <div className="w-full h-full">
                     <Project
                         title="HD-Wallet"
                         brief="Under the hood mechanism of HD-wallets"
@@ -109,10 +110,10 @@ export default function RightSection({ selected }: RightSectionProps) {
             )}
 
             {/* {selected === "Education" && (
-                <div className="w-full h-full">
-                    <Education />
-                </div>
-            )} */}
+        <div className="w-full h-full">
+          <Education />
+        </div>
+      )} */}
         </div>
     );
 }

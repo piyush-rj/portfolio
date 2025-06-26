@@ -1,27 +1,15 @@
-"use client"
+"use client";
 import { useState } from "react";
 import LeftSection from "./LeftSection/LeftSection";
 import RightSection from "./RightSection/RightSection";
 
 export default function MainSection() {
-    const [selected, setSelected] = useState<string | null>("About");
-    const [hovered, setHovered] = useState<string | null>(null);
-
-    const active = hovered ?? selected;
+    const [selected, setSelected] = useState<string>("About");
 
     return (
-        <div className="h-[80%] w-[80%] relative flex justify-center ">
-            <LeftSection
-                onSelect={(item) => {
-                    if (item === "About" || item === "Projects" || item == "Tech Stack") {
-                        setSelected(item);
-                        setHovered(null);
-                    }
-                }}
-                onHover={(item) => setHovered(item)}
-                onLeave={() => setHovered(null)}
-            />
-            <RightSection selected={active} />
+        <div className="h-[80%] w-[80%] relative flex justify-center">
+            <LeftSection onHoverSelect={(item) => setSelected(item)} selected={selected} />
+            <RightSection selected={selected} />
         </div>
     );
 }

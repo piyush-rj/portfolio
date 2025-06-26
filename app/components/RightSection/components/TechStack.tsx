@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import gsap from "gsap";
+import Tooltip from "../../Tooltip";
 
 interface Logos {
   name: string;
@@ -25,7 +26,9 @@ const logos: Logos[] = [
   { name: "postman", url: "https://img.icons8.com/?size=100&id=EPbEfEa7o8CB&format=png" },
   { name: "Turborepo", url: "/icons/Turborepo.svg" },
   { name: "TailwindCSS", url: "/icons/Tailwindcss.svg" },
-  { name: "WebSocker", url: "/icons/Websocket.svg" }
+  { name: "WebSocker", url: "/icons/Websocket.svg" },
+  { name: "HTML", url: "/icons/Html.png" },
+  { name: "CSS", url: "/icons/css.png" }
 ];
 
 export default function TechStack() {
@@ -55,36 +58,36 @@ export default function TechStack() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start px-4 sm:px-6 py-16 font-sans">
-      <h2 className="text-2xl sm:text-3xl font-bold text-neutral-200 mb-10 uppercase tracking-wider text-center">
+    <div className="w-full h-full flex flex-col items-center justify-start px-4 sm:px-6 py-12 sm:py-16 font-sans">
+      <h2 className="text-xl sm:text-3xl font-bold text-neutral-200 mb-6 sm:mb-10 uppercase tracking-wider text-center">
         Tech Stack
       </h2>
 
       <div
-        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 md:gap-8 place-items-center max-w-[1100px]"
+        className="grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-4 sm:gap-6 md:gap-8 place-items-center max-w-[1100px]"
         ref={(el) => {
           containerRef.current = el;
           handleAnimation(el);
         }}
       >
+
         {logos.map((tech, i) => (
-          <div
-            key={tech.name + i}
-            className="logo w-[60px] h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-xl p-2 flex items-center justify-center
-              bg-neutral-900 border border-neutral-800 shadow-inner hover:shadow-xl transition-all hover:scale-110"
-          >
-            {typeof tech.url === "string" ? (
-              <img
-                src={tech.url}
-                alt={tech.name}
-                className="w-full h-full object-contain"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-white text-sm">
-                {tech.url}
-              </div>
-            )}
-          </div>
+          <Tooltip key={tech.name + i} text={tech.name}>
+            <div className="logo w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-xl p-2 flex items-center justify-center
+              bg-neutral-900 border border-neutral-800 shadow-inner hover:shadow-xl transition-all hover:scale-110">
+              {typeof tech.url === "string" ? (
+                <img
+                  src={tech.url}
+                  alt={tech.name}
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-white text-sm">
+                  {tech.url}
+                </div>
+              )}
+            </div>
+          </Tooltip>
         ))}
       </div>
     </div>

@@ -1,49 +1,53 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useState, useRef } from "react";
 
 interface TooltipProps {
     text: string;
     children: ReactNode;
-    position?: "top" | "bottom" | "left" | "right";
+    offsetX?: number;
+    offsetY?: number;
+    className?: string;
 }
 
-export default function Tooltip({ text, children, position = "top" }: TooltipProps) {
-    const positionClasses = {
-        top: "bottom-full mb-3 left-1/2 -translate-x-1/2",
-        bottom: "top-full mt-2 left-1/2 -translate-x-1/2",
-        left: "right-full mr-2 top-1/2 -translate-y-1/2",
-        right: "left-full ml-2 top-1/2 -translate-y-1/2",
-    };
+export default function Tooltip({
+    text,
+    children,
+    offsetX = 10,
+    offsetY = 30,
+    className = "",
+}: TooltipProps) {
+    const [visible, setVisible] = useState(false);
+    const [coords, setCoords] = useState({ x: 0, y: 0 });
+    const tooltipRef = useRef<HTMLDivElement>(null);
 
-    const arrowPosition = {
-        top: "bottom-0 left-1/2 -translate-x-1/2 border-t-neutral-200",
-        bottom: "top-0 left-1/2 -translate-x-1/2 border-b-neutral-200",
-        left: "right-0 top-1/2 -translate-y-1/2 border-l-neutral-200",
-        right: "left-0 top-1/2 -translate-y-1/2 border-r-neutral-200",
-    };
-
-    const arrowBorder = {
-        top: "border-l-6 border-r-6 border-t-6 border-transparent border-t-neutral-200",
-        bottom: "border-l-6 border-r-6 border-b-6 border-transparent border-b-neutral-200",
-        left: "border-t-6 border-b-6 border-l-6 border-transparent border-l-neutral-200",
-        right: "border-t-6 border-b-6 border-r-6 border-transparent border-r-neutral-200",
+    const handleMouseMove = (e: React.MouseEvent) => {
+        setCoords({
+            x: e.clientX + offsetX, 
+            y: e.clientY + offsetY,
+        });
     };
 
     return (
-        <div className="relative group w-fit inline-block">
+        <div
+            className="relative inline-block"
+            onMouseEnter={() => setVisible(true)}
+            onMouseLeave={() => setVisible(false)}
+            onMouseMove={handleMouseMove}
+        >
             {children}
-            <div
-                className={`absolute ${positionClasses[position]} z-50 whitespace-nowrap 
-        opacity-0 group-hover:opacity-100 transition-opacity duration-200 
-        bg-neutral-200 font-semibold text-black text-xs px-2 py-1 rounded shadow-md`}
-            >
-                {text}
-                {/* Arrow */}
+
+            {visible && (
                 <div
-                    className={`absolute ${arrowPosition[position]} w-0 h-0 
-          ${arrowBorder[position]} pointer-events-none`}
-                />
-            </div>
+                    ref={tooltipRef}
+                    className={`fixed z-[9999] pointer-events-none whitespace-nowrap bg-neutral-200 text-black text-xs font-semibold px-2 py-1 rounded shadow-md transition-opacity duration-200 ${className}`}
+                    style={{
+                        left: coords.x,
+                        top: coords.y,
+                    }}
+                >
+                    {text}
+                </div>
+            )}
         </div>
     );
 }

@@ -42,25 +42,25 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
             href="https://www.linkedin.com/in/piyush-raj-07a318260/"
             className="relative group cursor-pointer"
           >
-            <Linkedin
-              width={35}
-              height={35}
-              className={`${theme == "dark"
-                ? "text-[#0e76a8] hover:text-[#0e77a8be]"
-                : "text-black hover:text-[#0e77a8be]"
-                } transition-colors duration-200`}
-            />
+            <Tooltip text="LinkedIn">
+              <Linkedin
+                width={35}
+                height={35}
+                className={`${theme == "dark"
+                  ? "text-[#0e76a8] hover:text-[#0e77a8be]"
+                  : "text-black hover:text-[#0e77a8be]"
+                  } transition-colors duration-200`}
+              />
+            </Tooltip>
             <div className="absolute h-[300px] w-[560px] bottom-full mb-2 left-1 -translate-x-10 hidden group-hover:block z-50">
-              <Tooltip text="View LinkedIn">
-                <Image
-                  src="/linkedin.png"
-                  alt="LinkedIn preview"
-                  width={120}
-                  height={80}
-                  className="rounded-2xl shadow-md h-full w-full"
-                  unoptimized
-                />
-              </Tooltip>
+              <Image
+                src="/linkedin.png"
+                alt="LinkedIn preview"
+                width={120}
+                height={80}
+                className="rounded-2xl shadow-md h-full w-full"
+                unoptimized
+              />
             </div>
           </Link>
 
@@ -68,25 +68,25 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
             href="https://x.com/PiyushC2P"
             className="relative group cursor-pointer"
           >
-            <Twitter
-              width={35}
-              height={35}
-              className={`${theme == "dark"
-                ? "text-[#1DA1F2] hover:text-[#1da0f2e3]"
-                : "text-black hover:text-[#1da0f2e3]"
-                } transition-colors duration-200`}
-            />
+            <Tooltip text="Twitter">
+              <Twitter
+                width={35}
+                height={35}
+                className={`${theme == "dark"
+                  ? "text-[#1DA1F2] hover:text-[#1da0f2e3]"
+                  : "text-black hover:text-[#1da0f2e3]"
+                  } transition-colors duration-200`}
+              />
+            </Tooltip>
             <div className="absolute h-[300px] w-[560px] bottom-full mb-2 left-1/2 -translate-x-10 hidden group-hover:block z-50">
-              <Tooltip text="View Twitter">
-                <Image
-                  src="/twitter.png"
-                  alt="Twitter preview"
-                  width={120}
-                  height={80}
-                  className="rounded-2xl shadow-md h-full w-full"
-                  unoptimized
-                />
-              </Tooltip>
+              <Image
+                src="/twitter.png"
+                alt="Twitter preview"
+                width={120}
+                height={80}
+                className="rounded-2xl shadow-md h-full w-full"
+                unoptimized
+              />
             </div>
           </Link>
 
@@ -94,25 +94,25 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
             href="https://github.com/piyush-rj"
             className="relative group cursor-pointer"
           >
-            <Github
-              width={35}
-              height={35}
-              className={`${theme == "dark"
-                ? "text-neutral-400 hover:text-neutral-500"
-                : "text-black hover:text-neutral-700"
-                } transition-colors duration-200`}
-            />
+            <Tooltip text="GitHub">
+              <Github
+                width={35}
+                height={35}
+                className={`${theme == "dark"
+                  ? "text-neutral-400 hover:text-neutral-500"
+                  : "text-black hover:text-neutral-700"
+                  } transition-colors duration-200`}
+              />
+            </Tooltip>
             <div className="absolute h-[300px] w-[560px] bottom-full mb-2 left-1/2 -translate-x-10 hidden group-hover:block z-50">
-              <Tooltip text="View Github" position="top">
-                <Image
-                  src="/github.png"
-                  alt="GitHub preview"
-                  width={120}
-                  height={80}
-                  className="rounded-2xl shadow-md h-full w-full"
-                  unoptimized
-                />
-              </Tooltip>
+              <Image
+                src="/github.png"
+                alt="GitHub preview"
+                width={120}
+                height={80}
+                className="rounded-2xl shadow-md h-full w-full"
+                unoptimized
+              />
             </div>
           </Link>
 
@@ -121,26 +121,26 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
             download
             className="relative group cursor-pointer"
           >
-            <FileText
-              width={35}
-              height={35}
-              className={`${theme == "dark"
-                ? "text-rose-500 hover:text-rose-700"
-                : "text-black hover:text-rose-500"
-                } transition-colors duration-200`}
-            />
+            <Tooltip text="Resume">
+              <FileText
+                width={35}
+                height={35}
+                className={`${theme == "dark"
+                  ? "text-rose-500 hover:text-rose-700"
+                  : "text-black hover:text-rose-500"
+                  } transition-colors duration-200`}
+              />
+            </Tooltip>
             <div className="absolute h-[350px] w-[260px] bottom-full mb-2 left-1/2 -translate-x-10 hidden group-hover:block z-50">
-              <Tooltip text="Download resume" position="top">
 
-                <Image
-                  src="/resume.png"
-                  alt="Resume preview"
-                  width={60}
-                  height={180}
-                  className="rounded-2xl shadow-md h-full w-full"
-                  unoptimized
-                />
-              </Tooltip>
+              <Image
+                src="/resume.png"
+                alt="Resume preview"
+                width={60}
+                height={180}
+                className="rounded-2xl shadow-md h-full w-full"
+                unoptimized
+              />
             </div>
           </a>
 
