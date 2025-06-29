@@ -11,6 +11,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function WorkExperience() {
     const containerRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
+    const techRef = useRef<HTMLDivElement>(null);
+    const mobileTechRef = useRef<HTMLDivElement>(null);
     const { theme } = useTheme();
     const isDark = theme === "dark";
     const [techPanel, setTechPanel] = useState<boolean>(false);
@@ -32,10 +34,43 @@ export default function WorkExperience() {
         return () => ctx.revert();
     }, []);
 
+    useEffect(() => {
+        if (techPanel && techRef.current) {
+            const ctx = gsap.context(() => {
+                gsap.from(techRef.current!.children, {
+                    opacity: 0,
+                    y: 20,
+                    duration: 0.4,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                });
+            }, techRef);
+
+            return () => ctx.revert();
+        }
+    }, [techPanel]);
+
+    useEffect(() => {
+        if (techPanel && mobileTechRef.current) {
+            const tl = gsap.timeline();
+            tl.fromTo(
+                mobileTechRef.current,
+                { height: 0, opacity: 0, y: -10 },
+                { height: "auto", opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+            );
+            tl.fromTo(
+                mobileTechRef.current.children,
+                { opacity: 0, y: 10 },
+                { opacity: 1, y: 0, duration: 0.3, stagger: 0.05 },
+                "<+0.1"
+            );
+        }
+    }, [techPanel]);
+
     return (
         <div
             ref={containerRef}
-            className="w-full flex justify-center px-2 sm:px-6 md:px-12 py-10"
+            className="w-full flex justify-center px-2 sm:px-6 md:px-12 py-10 font-sans"
         >
             <div
                 onMouseEnter={() => setTechPanel(true)}
@@ -44,7 +79,10 @@ export default function WorkExperience() {
             >
                 <div
                     ref={cardRef}
-                    className={`w-full border border-neutral-700 rounded-xl shadow-md p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-6 transition-all duration-300 ease-in-out bg-white dark:bg-neutral-900 relative z-10 ${techPanel ? "pb-20" : ""
+                    className={`w-full rounded-xl shadow-md p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-6 transition-all duration-300 ease-in-out relative z-10 ${techPanel ? "pb-20" : ""
+                        } ${isDark
+                            ? "bg-neutral-900 border border-neutral-700"
+                            : "bg-neutral-200 border border-neutral-400"
                         }`}
                 >
                     {/* Left section */}
@@ -59,13 +97,57 @@ export default function WorkExperience() {
                                 width={200}
                             />
                         </div>
-                        <p className="text-xs sm:text-sm text-center text-neutral-600 dark:text-neutral-400">
+                        <p className={`text-xs sm:text-sm text-center ${isDark ? "text-neutral-400" : "text-black"}`}>
                             May – June 2025
                         </p>
-                        <div className="flex justify-center items-center">
-                            <div className="flex w-22 px-4 items-center gap-x-1 p-1 justify-around bg-neutral-200 hover:bg-neutral-300 text-black border border-neutral-800 rounded-full group cursor-pointer transition-colors duration-300">
+
+                        {/* Buttons */}
+                        <div className="flex flex-col items-center gap-2 w-full">
+                            {/* LIVE */}
+                            <div
+                                className={`flex px-4 items-center gap-x-1 p-1 justify-around rounded-full group cursor-pointer transition-colors duration-300 ${theme == "dark"
+                                        ? "bg-neutral-200 hover:bg-neutral-300 text-black border border-neutral-800"
+                                        : "bg-neutral-100 border border-neutral-400/50 hover:bg-white"
+                                    }`}
+                            >
                                 <ExternalLink height={15} width={15} />
                                 <span className="tracking-wide font-sans text-sm">LIVE</span>
+                            </div>
+
+                            {/* Tech Stack Button for Mobile */}
+                            <button
+                                onClick={() => setTechPanel((prev) => !prev)}
+                                className={`sm:hidden flex px-4 py-1 rounded-full text-sm font-medium border ${theme == "dark"
+                                        ? "bg-neutral-200 text-black border-neutral-800"
+                                        : "bg-neutral-100 text-black border-neutral-400"
+                                    }`}
+                            >
+                                Tech Stack
+                            </button>
+
+                            {/* Mobile Tech Stack Panel with animation */}
+                            <div className="sm:hidden w-full overflow-hidden">
+                                {techPanel && (
+                                    <div
+                                        ref={mobileTechRef}
+                                        className={`mt-3 backdrop-blur-md font-sans p-4 py-6 rounded-xl shadow-xs flex gap-3 flex-wrap justify-center ${isDark
+                                                ? "bg-black/60 text-neutral-200"
+                                                : "bg-white/60 text-black"
+                                            }`}
+                                    >
+                                        {["Next.js", "Tailwind", "TypeScript", "Prisma", "AWS"].map((tech, i) => (
+                                            <div
+                                                key={i}
+                                                className={`px-4 py-1 text-sm rounded-full ${isDark
+                                                        ? "bg-neutral-200 text-black"
+                                                        : "bg-white text-black shadow-md"
+                                                    }`}
+                                            >
+                                                {tech}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -76,7 +158,7 @@ export default function WorkExperience() {
                             <h2 className={`text-xl font-semibold ${isDark ? "text-white" : "text-neutral-900"}`}>
                                 Wallpaper Heaven
                             </h2>
-                            <p className={`text-sm ${isDark ? "text-neutral-400" : "text-neutral-600"}`}>
+                            <p className={`text-sm ${isDark ? "text-neutral-400" : "text-neutral-800"}`}>
                                 Full-Stack Developer
                             </p>
                         </div>
@@ -88,29 +170,33 @@ export default function WorkExperience() {
                                 "Integrated dynamic content using TypeScript and Prisma ORM.",
                                 "Optimized for SEO and deployed on AWS EC2.",
                             ].map((item, i) => (
-                                <li
-                                    key={i}
-                                    className="flex items-start gap-2 text-neutral-700 dark:text-neutral-300"
-                                >
-                                    <span className="h-1.5 w-1.5 bg-neutral-400 mt-[7px] rounded-full"></span>
+                                <li key={i} className={`flex items-start gap-2 ${isDark ? "text-neutral-400" : ""}`}>
+                                    <span className={`h-1.5 w-1.5 mt-[7px] rounded-full ${isDark ? "bg-neutral-400" : "bg-black"}`}></span>
                                     <span>{item}</span>
                                 </li>
                             ))}
                         </ul>
 
-                        {/* Tech Stack Panel */}
-                        {techPanel && (
-                            <div className="mt-6 backdrop-blur-md font-sans bg-black/60 text-neutral-200 p-4 py-6 rounded-xl shadow-lg flex gap-3 flex-wrap justify-center">
-                                {["Next.js", "Tailwind", "TypeScript", "Prisma", "AWS"].map((tech, i) => (
-                                    <div
-                                        key={i}
-                                        className="px-4 py-1 text-sm rounded-full bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white"
-                                    >
-                                        {tech}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                        {/* Desktop Hover Tech Stack Panel */}
+                        <div className="hidden sm:block">
+                            {techPanel && (
+                                <div
+                                    ref={techRef}
+                                    className={`mt-6 backdrop-blur-md font-sans p-4 py-6 rounded-xl shadow-xs flex gap-3 flex-wrap justify-center ${isDark ? "bg-black/60 text-neutral-200" : "bg-white/60 text-black"
+                                        }`}
+                                >
+                                    {["Next.js", "Tailwind", "TypeScript", "Prisma", "AWS"].map((tech, i) => (
+                                        <div
+                                            key={i}
+                                            className={`px-4 py-1 text-sm rounded-full ${isDark ? "bg-neutral-200 text-black" : "bg-white text-black shadow-md"
+                                                }`}
+                                        >
+                                            {tech}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

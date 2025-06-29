@@ -3,6 +3,7 @@
 import { ReactNode, useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Roboto } from "next/font/google";
+import { useTheme } from "../hooks/zustand";
 
 const roboto = Roboto({ subsets: ["latin"] });
 
@@ -14,20 +15,16 @@ interface ToolTipProps {
     className?: string;
 }
 
-export default function ToolTip({
-    text,
-    children,
-    offsetX = 17,
-    offsetY = 30,
-    className = "",
-}: ToolTipProps) {
+export default function ToolTip({text, children, offsetX = 17, offsetY = 30, className = ""}: ToolTipProps) {
     const [visible, setVisible] = useState(false);
     const [coords, setCoords] = useState({ x: 0, y: 0 });
     const tooltipRef = useRef<HTMLDivElement>(null);
     const [mounted, setMounted] = useState(false);
+    const {theme} = useTheme();
+
 
     useEffect(() => {
-        setMounted(true); // Ensures portal only renders on client
+        setMounted(true);
     }, []);
 
     const handleMouseMove = (e: React.MouseEvent) => {
@@ -36,6 +33,7 @@ export default function ToolTip({
             y: e.clientY + offsetY,
         });
     };
+
 
     return (
         <div
@@ -49,7 +47,7 @@ export default function ToolTip({
                 createPortal(
                     <div
                         ref={tooltipRef}
-                        className={`fixed z-[9999] pointer-events-none whitespace-nowrap bg-neutral-200 text-black text-sm px-2 py-1 rounded shadow-md transition-opacity duration-200 ${roboto.className} ${className}`}
+                        className={`fixed z-[9999] pointer-events-none whitespace-nowrap font-bold text-sm px-3 py-1 rounded-md shadow-md transition-opacity duration-200 ${theme == "dark" ? "bg-white text-black" : "bg-black text-white"} ${roboto.className} ${className}`}
                         style={{ left: coords.x, top: coords.y }}
                     >
                         {text}

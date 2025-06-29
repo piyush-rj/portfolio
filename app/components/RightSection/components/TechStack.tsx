@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import Tooltip from "../../Tooltip";
+import { useTheme } from "@/app/hooks/zustand";
 
 interface Logos {
   name: string;
@@ -33,6 +34,7 @@ const logos: Logos[] = [
 
 export default function TechStack() {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const {theme} = useTheme();
 
   const handleAnimation = (el: HTMLDivElement | null) => {
     if (!el) return;
@@ -59,7 +61,7 @@ export default function TechStack() {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-start px-4 sm:px-6 py-12 sm:py-16 font-sans">
-      <h2 className="text-xl sm:text-3xl font-bold text-neutral-200 mb-6 sm:mb-10 uppercase tracking-wider text-center">
+      <h2 className={`text-xl sm:text-3xl font-bold mb-6 sm:mb-10 uppercase tracking-wider text-center ${theme == "dark" ? "text-neutral-200" : "text-black"}`}>
         Tech Stack
       </h2>
 
@@ -73,8 +75,8 @@ export default function TechStack() {
 
         {logos.map((tech, i) => (
           <Tooltip key={tech.name + i} text={tech.name}>
-            <div className="logo w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-xl p-2 flex items-center justify-center
-              bg-neutral-900 border border-neutral-800 shadow-inner hover:shadow-xl transition-all hover:scale-110">
+            <div className={`logo w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-xl p-2 flex items-center justify-center
+               shadow-inner hover:shadow-xl transition-all hover:scale-110 ${theme == "dark" ? "bg-neutral-900 border border-neutral-900" : "bg-neutral-200 border border-neutral-500"}`}>
               {typeof tech.url === "string" ? (
                 <img
                   src={tech.url}

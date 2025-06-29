@@ -19,7 +19,7 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       onClick={onClick}
-      className="text-black flex justify-center items-center h-full w-full overflow-visible relative"
+      className="text-black flex justify-center items-center h-full w-full overflow-visible relative font-sans"
     >
       <div className="h-[190px] w-[500px] flex flex-col justify-between p-4">
         <div>

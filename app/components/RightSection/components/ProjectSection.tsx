@@ -2,9 +2,10 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, ArrowUpRight, GithubIcon, Wifi, WifiOff } from "lucide-react";
+import { GithubIcon, Wifi, WifiOff } from "lucide-react";
 import gsap from "gsap";
 import { useTheme } from "@/app/hooks/zustand";
+import ToolTip from "../../Tooltip";
 
 const projects = [
     {
@@ -13,6 +14,7 @@ const projects = [
         github: "https://github.com/piyush-rj/bytewords",
         website: "https://bytewords-pi.vercel.app/",
         image: "/ByteWords.png",
+        tech: ["Next.js", "Tailwind", "GSAP"]
     },
     {
         name: "SolDrop",
@@ -20,6 +22,7 @@ const projects = [
         github: "https://github.com/piyush-rj/soldrop",
         website: "https://soldrop-ashen.vercel.app/",
         image: "/soldrop.png",
+        tech: ["Solana", "Phantom", "Tailwind"]
     },
     {
         name: "NexWallet",
@@ -27,6 +30,7 @@ const projects = [
         github: "https://github.com/piyush-rj/nexwallet",
         website: "https://nexwallet-pink.vercel.app/",
         image: "/NexWallet.png",
+        tech: ["Next.js", "Web3.js", "Tailwind"]
     },
     {
         name: "PayTM Adv",
@@ -34,7 +38,8 @@ const projects = [
         github: "https://github.com/piyush-rj/paytm-adv",
         website: "#",
         image: "/images/paytm.png",
-    },
+        tech: ["React", "Framer Motion", "UI/UX"]
+    }
 ];
 
 export default function ProjectSection() {
@@ -42,7 +47,9 @@ export default function ProjectSection() {
     const [coords, setCoords] = useState({ x: 0, y: 0 });
     const githubIconRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const websiteIconRefs = useRef<(HTMLSpanElement | null)[]>([]);
-    const{theme} = useTheme();
+    const tagRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [showTags, setShowTags] = useState(false);
+    const { theme } = useTheme();
 
     useEffect(() => {
         githubIconRefs.current.forEach((ref) => {
@@ -50,6 +57,10 @@ export default function ProjectSection() {
         });
         websiteIconRefs.current.forEach((ref) => {
             if (ref) gsap.set(ref, { opacity: 0, x: -5 });
+        });
+        tagRefs.current.forEach((ref) => {
+            if (ref)
+                gsap.fromTo(ref, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 });
         });
     }, []);
 
@@ -64,9 +75,7 @@ export default function ProjectSection() {
     };
 
     return (
-        <div className={`relative px-4 sm:px-12 w-full font-sans
-  h-auto sm:h-full 
-  overflow-y-auto overflow-x-hidden [::-webkit-scrollbar]:hidden [scrollbar-width:none] ${theme == "dark" ? "bg-black text-neutral-100" : "bg-transparent text-black"}`}>
+        <div className={`relative px-4 sm:px-12 w-full font-sans overflow-y-auto overflow-x-hidden [::-webkit-scrollbar]:hidden [scrollbar-width:none] ${theme === "dark" ? "bg-black text-neutral-100" : "bg-transparent text-black"}`}>
             <div className="flex flex-col max-w-5xl mx-auto">
                 {projects.map((project, index) => (
                     <div
@@ -81,7 +90,6 @@ export default function ProjectSection() {
                             })
                         }
                     >
-                        {/* Static image for mobile */}
                         <div className="sm:hidden mb-4 w-full aspect-video rounded-xl overflow-hidden border border-neutral-800">
                             <Image
                                 src={project.image}
@@ -93,53 +101,74 @@ export default function ProjectSection() {
                         </div>
 
                         <div className="transition-transform h-full w-full duration-300 group-hover:translate-x-1">
-                            <h2 className="text-[18px] sm:text-[25px] font-semibold leading-snug font-sans text-neutral-300 tracking-tight group-hover:opacity-90 transition-opacity duration-300">
+                            <h2 className={`text-[18px] sm:text-[25px] font-semibold leading-snug tracking-tight group-hover:opacity-90 transition-opacity duration-300 ${theme === "dark" ? "text-neutral-300" : "text-black"}`}>
                                 {project.name}
                             </h2>
-                            <p className="text-[14px] sm:text-[17px] text-neutral-400 mt-1 leading-relaxed font-sans">
+                            <p className={`text-[14px] sm:text-[17px] mt-1 leading-relaxed ${theme === "dark" ? "text-neutral-400" : "text-neutral-800"}`}>
                                 {project.description}
                             </p>
 
-                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mt-4 text-[14px] sm:text-sm text-neutral-300 font-sans">
-                                <Link
-                                    href={project.github}
-                                    target="_blank"
-                                    className="group/link relative overflow-hidden w-fit"
-                                    onMouseEnter={() => animateIcon(githubIconRefs.current[index], true)}
-                                    onMouseLeave={() => animateIcon(githubIconRefs.current[index], false)}
-                                >
-                                    <span className="inline-flex items-center gap-1 sm:gap-2 font-caveat relative hover:text-neutral-400">
-                                        <GithubIcon />
-                                    </span>
-                                </Link>
+                            <div className="flex flex-row gap-4 mt-4 text-sm">
+                                <ToolTip text="Github">
+                                    <Link
+                                        href={project.github}
+                                        target="_blank"
+                                        className="relative"
+                                        onMouseEnter={() => animateIcon(githubIconRefs.current[index], true)}
+                                        onMouseLeave={() => animateIcon(githubIconRefs.current[index], false)}
+                                    >
+                                        <span className="inline-flex items-center gap-2">
+                                            <GithubIcon />
+                                        </span>
+                                    </Link>
+                                </ToolTip>
 
-                                <Link
-                                    href={project.website}
-                                    target="_blank"
-                                    className="group/link relative overflow-hidden w-fit"
-                                    onMouseEnter={() => animateIcon(websiteIconRefs.current[index], true)}
-                                    onMouseLeave={() => animateIcon(websiteIconRefs.current[index], false)}
-                                >
-                                    <span className="inline-flex items-center gap-1 sm:gap-2 relative hover:text-neutral-400">
-                                        {project.name === "PayTM Adv" ? <WifiOff /> : <Wifi />}
-                                    </span>
-                                </Link>
+                                <ToolTip text={project.name === "PayTM Adv" ? "Not Live" : "Live"}>
+                                    <Link
+                                        href={project.website}
+                                        target="_blank"
+                                        className="relative"
+                                        onMouseEnter={() => animateIcon(websiteIconRefs.current[index], true)}
+                                        onMouseLeave={() => animateIcon(websiteIconRefs.current[index], false)}
+                                    >
+                                        <span className="inline-flex items-center gap-2">
+                                            {project.name === "PayTM Adv" ? <WifiOff /> : <Wifi />}
+                                        </span>
+                                    </Link>
+                                </ToolTip>
 
+                                <button
+                                    className={`sm:hidden  font-sans px-4 py-1 rounded-full shadow-inner text-xs font-semibold ${theme == "dark" ? "bg-neutral-200/20 text-neutral-300" : "bg-black text-white"}`}
+                                    onClick={() => setShowTags((prev) => !prev)}
+                                >
+                                    {showTags ? "Hide Stack" : "View Stack"}
+                                </button>
                             </div>
+
+                            {(showTags || typeof window !== 'undefined' && window.innerWidth >= 640) && (
+                                <div
+                                    ref={(el) => {(tagRefs.current[index] = el)}}
+                                    className="mt-3 flex flex-wrap gap-2"
+                                >
+                                    {project.tech.map((tech, i) => (
+                                        <div
+                                            key={i}
+                                            className="bg-white text-black text-xs px-2 py-1 rounded-md shadow-[inset_0px_0px_8px_rgba(0,0,0,0.2)] border border-black/20"
+                                        >
+                                            {tech}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 ))}
-
             </div>
 
-            {/* Hover Preview for Desktop */}
             {hoveredIndex !== null && (
                 <div
-                    className="hidden sm:block fixed z-50 pointer-events-none w-72 h-48 rounded-xl overflow-hidden border border-neutral-800 backdrop-blur-md bg-neutral-900/80 shadow-2xl transition-opacity duration-200"
-                    style={{
-                        left: coords.x,
-                        top: coords.y,
-                    }}
+                    className="hidden sm:block fixed z-50 pointer-events-none w-72 h-48 rounded-xl overflow-hidden border border-neutral-800 backdrop-blur-md bg-neutral-900/80 shadow-2xl"
+                    style={{ left: coords.x, top: coords.y }}
                 >
                     <Image
                         src={projects[hoveredIndex].image}
@@ -151,6 +180,5 @@ export default function ProjectSection() {
                 </div>
             )}
         </div>
-
     );
 }

@@ -11,13 +11,7 @@ interface AboutHeadingProps {
     onHover?: (item: string) => void;
 }
 
-export default function AboutHeading({
-    text,
-    tooltip,
-    onClick,
-    isActive,
-    onHover,
-}: AboutHeadingProps) {
+export default function AboutHeading({ text, tooltip, onClick, isActive, onHover }: AboutHeadingProps) {
     const [textHovered, setTextHovered] = useState(false);
     const [iconHovered, setIconHovered] = useState(false);
     const [textPos, setTextPos] = useState({ x: 0, y: 0 });
@@ -44,11 +38,11 @@ export default function AboutHeading({
 
     return (
         <div
-            className={`relative flex items-center justify-between border border-black/5 shadow-md mb-2 text-[20px] font-semibold rounded-[10px] mt-2 py-1
+            className={`relative font-sans flex items-center justify-between border border-black/5 shadow-md mb-2 text-[20px] font-semibold rounded-[10px] mt-2 py-1
       ${theme === 'dark' ? 'text-neutral-800' : 'text-black'}
       ${isActive ? 'border-primary border-l-4' : ''}`}
         >
-            {/* Text with Tooltip */}
+
             <span
                 ref={textRef}
                 onClick={onClick}
@@ -77,7 +71,6 @@ export default function AboutHeading({
                 )}
             </span>
 
-            {/* Theme Toggle with Custom Tooltip */}
             <button
                 ref={iconRef}
                 onClick={(e) => {
