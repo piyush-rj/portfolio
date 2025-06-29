@@ -1,7 +1,12 @@
 "use client";
-import { ReactNode, useState, useRef } from "react";
 
-interface TooltipProps {
+import { ReactNode, useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({ subsets: ["latin"] });
+
+interface ToolTipProps {
     text: string;
     children: ReactNode;
     offsetX?: number;
@@ -9,20 +14,25 @@ interface TooltipProps {
     className?: string;
 }
 
-export default function Tooltip({
+export default function ToolTip({
     text,
     children,
-    offsetX = 10,
+    offsetX = 17,
     offsetY = 30,
     className = "",
-}: TooltipProps) {
+}: ToolTipProps) {
     const [visible, setVisible] = useState(false);
     const [coords, setCoords] = useState({ x: 0, y: 0 });
     const tooltipRef = useRef<HTMLDivElement>(null);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true); // Ensures portal only renders on client
+    }, []);
 
     const handleMouseMove = (e: React.MouseEvent) => {
         setCoords({
-            x: e.clientX + offsetX, 
+            x: e.clientX + offsetX,
             y: e.clientY + offsetY,
         });
     };
@@ -35,19 +45,18 @@ export default function Tooltip({
             onMouseMove={handleMouseMove}
         >
             {children}
-
-            {visible && (
-                <div
-                    ref={tooltipRef}
-                    className={`fixed z-[9999] pointer-events-none whitespace-nowrap bg-neutral-200 text-black text-xs font-semibold px-2 py-1 rounded shadow-md transition-opacity duration-200 ${className}`}
-                    style={{
-                        left: coords.x,
-                        top: coords.y,
-                    }}
-                >
-                    {text}
-                </div>
-            )}
+            {mounted && visible &&
+                createPortal(
+                    <div
+                        ref={tooltipRef}
+                        className={`fixed z-[9999] pointer-events-none whitespace-nowrap bg-neutral-200 text-black text-sm px-2 py-1 rounded shadow-md transition-opacity duration-200 ${roboto.className} ${className}`}
+                        style={{ left: coords.x, top: coords.y }}
+                    >
+                        {text}
+                    </div>,
+                    document.body
+                )
+            }
         </div>
     );
 }

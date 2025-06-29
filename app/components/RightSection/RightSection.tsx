@@ -96,6 +96,17 @@ export default function RightSection({ selected }: RightSectionProps) {
                     />
                 </div>
             )}
+            
+            {selected === "HD-Wallet" && (
+                <div className="w-full h-full">
+                    <Project
+                        title="HD-Wallet"
+                        brief="Under the hood mechanism of HD-wallets"
+                        description="This one’s a concept for a crypto wallet dashboard. It shows your token balances, recent transactions, and gives a nice overview of your crypto stuff. It’s mostly a frontend demo, but it looks modern and responsive."
+                        url="/nexwallet.mp4"
+                    />
+                </div>
+            )}
 
             {selected === "Tech Stack" && (
                 <div className="w-full h-full">

@@ -5,6 +5,10 @@
   --foreground: #171717;
 }
 
+* {
+  font-style: sans;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -62,4 +66,10 @@
   100% {
     background-position: 0% 100%;
   }
+}
+
+.custom-resizer::-webkit-resizer {
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    border-radius: 0 0 7px 0;
 }

@@ -2,8 +2,9 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Github, ArrowUpRight } from "lucide-react";
+import { Github, ArrowUpRight, GithubIcon, Wifi, WifiOff } from "lucide-react";
 import gsap from "gsap";
+import { useTheme } from "@/app/hooks/zustand";
 
 const projects = [
     {
@@ -41,6 +42,7 @@ export default function ProjectSection() {
     const [coords, setCoords] = useState({ x: 0, y: 0 });
     const githubIconRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const websiteIconRefs = useRef<(HTMLSpanElement | null)[]>([]);
+    const{theme} = useTheme();
 
     useEffect(() => {
         githubIconRefs.current.forEach((ref) => {
@@ -62,9 +64,9 @@ export default function ProjectSection() {
     };
 
     return (
-        <div className="relative px-4 sm:px-12 w-full text-neutral-100 font-[Inter] bg-black 
+        <div className={`relative px-4 sm:px-12 w-full font-sans
   h-auto sm:h-full 
-  overflow-y-auto sm:overflow-hidden">
+  overflow-y-auto overflow-x-hidden [::-webkit-scrollbar]:hidden [scrollbar-width:none] ${theme == "dark" ? "bg-black text-neutral-100" : "bg-transparent text-black"}`}>
             <div className="flex flex-col max-w-5xl mx-auto">
                 {projects.map((project, index) => (
                     <div
@@ -106,8 +108,8 @@ export default function ProjectSection() {
                                     onMouseEnter={() => animateIcon(githubIconRefs.current[index], true)}
                                     onMouseLeave={() => animateIcon(githubIconRefs.current[index], false)}
                                 >
-                                    <span className="inline-flex items-center gap-1 sm:gap-2 font-caveat relative after:absolute after:bottom-0 after:left-1/2 after:h-[1px] after:w-0 group-hover/link:after:w-full after:-translate-x-1/2 after:bg-white group-hover/link:after:scale-x-100 after:transition-all after:duration-300 hover:text-neutral-400">
-                                        GitHub
+                                    <span className="inline-flex items-center gap-1 sm:gap-2 font-caveat relative hover:text-neutral-400">
+                                        <GithubIcon />
                                     </span>
                                 </Link>
 
@@ -118,10 +120,11 @@ export default function ProjectSection() {
                                     onMouseEnter={() => animateIcon(websiteIconRefs.current[index], true)}
                                     onMouseLeave={() => animateIcon(websiteIconRefs.current[index], false)}
                                 >
-                                    <span className="inline-flex items-center gap-1 sm:gap-2 relative after:absolute after:bottom-0 after:left-1/2 after:h-[1px] after:w-0 group-hover/link:after:w-full after:-translate-x-1/2 after:bg-white group-hover/link:after:scale-x-100 after:transition-all after:duration-300 hover:text-neutral-400">
-                                        Website
+                                    <span className="inline-flex items-center gap-1 sm:gap-2 relative hover:text-neutral-400">
+                                        {project.name === "PayTM Adv" ? <WifiOff /> : <Wifi />}
                                     </span>
                                 </Link>
+
                             </div>
                         </div>
                     </div>
