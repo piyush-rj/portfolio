@@ -261,10 +261,10 @@ export default function LeftSection({
                     <span className={`text-xs ${selected === "Projects" ? "font-bold text-black" : "text-neutral-600"} ${theme == "dark" ? "text-neutral-300" : ""}`}>Projects</span>
                 </button>
                 <button onClick={() => onHoverSelect("Tech Stack")}>
-                    <span className={`text-xs ${selected === "Tech Stack" ? "font-bold text-black" : "text-neutral-700"} ${theme == "dark" ? "text-neutral-300" : ""}`}>Tech</span>
+                    <span className={`text-xs ${selected === "Tech Stack" ? "font-bold text-black" : "text-neutral-600"} ${theme == "dark" ? "text-neutral-300" : ""}`}>Tech</span>
                 </button>
                 <button onClick={() => onHoverSelect("Work Experience")}>
-                    <span className={`text-xs ${selected === "Work Experience" ? "font-bold text-black" : "text-neutral-700"} ${theme == "dark" ? "text-neutral-300" : ""}`}>Work</span>
+                    <span className={`text-xs ${selected === "Work Experience" ? "font-bold text-black" : "text-neutral-600"} ${theme == "dark" ? "text-neutral-300" : ""}`}>Work</span>
                 </button>
 
                 <span className="text-neutral-500">|</span>

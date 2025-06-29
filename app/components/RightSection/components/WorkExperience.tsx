@@ -79,11 +79,13 @@ export default function WorkExperience() {
             >
                 <div
                     ref={cardRef}
-                    className={`w-full rounded-xl shadow-md p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-6 transition-all duration-300 ease-in-out relative z-10 ${techPanel ? "pb-20" : ""
-                        } ${isDark
+                    className={`w-full rounded-xl shadow-md p-6 sm:p-8 flex flex-col sm:flex-row items-start gap-6 transition-all duration-300 ease-in-out relative z-10 ${
+                        techPanel ? "pb-20" : ""
+                    } ${
+                        isDark
                             ? "bg-neutral-900 border border-neutral-700"
                             : "bg-neutral-200 border border-neutral-400"
-                        }`}
+                    }`}
                 >
                     {/* Left section */}
                     <div className="w-full sm:w-36 flex flex-col md:flex-col sm:flex-col-reverse gap-2">
@@ -105,10 +107,11 @@ export default function WorkExperience() {
                         <div className="flex flex-col items-center gap-2 w-full">
                             {/* LIVE */}
                             <div
-                                className={`flex px-4 items-center gap-x-1 p-1 justify-around rounded-full group cursor-pointer transition-colors duration-300 ${theme == "dark"
+                                className={`flex px-4 items-center gap-x-1 p-1 justify-around rounded-full group cursor-pointer transition-colors duration-300 ${
+                                    theme == "dark"
                                         ? "bg-neutral-200 hover:bg-neutral-300 text-black border border-neutral-800"
                                         : "bg-neutral-100 border border-neutral-400/50 hover:bg-white"
-                                    }`}
+                                }`}
                             >
                                 <ExternalLink height={15} width={15} />
                                 <span className="tracking-wide font-sans text-sm">LIVE</span>
@@ -117,10 +120,11 @@ export default function WorkExperience() {
                             {/* Tech Stack Button for Mobile */}
                             <button
                                 onClick={() => setTechPanel((prev) => !prev)}
-                                className={`sm:hidden flex px-4 py-1 rounded-full text-sm font-medium border ${theme == "dark"
+                                className={`sm:hidden flex px-4 py-1 rounded-full text-sm font-medium border ${
+                                    theme == "dark"
                                         ? "bg-neutral-200 text-black border-neutral-800"
-                                        : "bg-neutral-100 text-black border-neutral-400"
-                                    }`}
+                                        : "bg-neutral-900 text-white border-neutral-400"
+                                }`}
                             >
                                 Tech Stack
                             </button>
@@ -130,18 +134,20 @@ export default function WorkExperience() {
                                 {techPanel && (
                                     <div
                                         ref={mobileTechRef}
-                                        className={`mt-3 backdrop-blur-md font-sans p-4 py-6 rounded-xl shadow-xs flex gap-3 flex-wrap justify-center ${isDark
+                                        className={`mt-3 backdrop-blur-md font-sans p-4 py-6 rounded-xl shadow-xs flex gap-3 flex-wrap justify-center ${
+                                            theme == "dark"
                                                 ? "bg-black/60 text-neutral-200"
                                                 : "bg-white/60 text-black"
-                                            }`}
+                                        }`}
                                     >
                                         {["Next.js", "Tailwind", "TypeScript", "Prisma", "AWS"].map((tech, i) => (
                                             <div
                                                 key={i}
-                                                className={`px-4 py-1 text-sm rounded-full ${isDark
+                                                className={`px-4 py-1 text-sm rounded-full ${
+                                                    isDark
                                                         ? "bg-neutral-200 text-black"
                                                         : "bg-white text-black shadow-md"
-                                                    }`}
+                                                }`}
                                             >
                                                 {tech}
                                             </div>
@@ -182,14 +188,16 @@ export default function WorkExperience() {
                             {techPanel && (
                                 <div
                                     ref={techRef}
-                                    className={`mt-6 backdrop-blur-md font-sans p-4 py-6 rounded-xl shadow-xs flex gap-3 flex-wrap justify-center ${isDark ? "bg-black/60 text-neutral-200" : "bg-white/60 text-black"
-                                        }`}
+                                    className={`mt-6 backdrop-blur-md font-sans p-4 py-6 rounded-xl shadow-xs flex gap-3 flex-wrap justify-center ${
+                                        isDark ? "bg-black/60 text-neutral-200" : "bg-white/60 text-black"
+                                    }`}
                                 >
                                     {["Next.js", "Tailwind", "TypeScript", "Prisma", "AWS"].map((tech, i) => (
                                         <div
                                             key={i}
-                                            className={`px-4 py-1 text-sm rounded-full ${isDark ? "bg-neutral-200 text-black" : "bg-white text-black shadow-md"
-                                                }`}
+                                            className={`px-3 py-1 text-[12px] rounded-full ${
+                                                isDark ? "bg-neutral-200 text-black" : "bg-white text-black shadow-md"
+                                            }`}
                                         >
                                             {tech}
                                         </div>
