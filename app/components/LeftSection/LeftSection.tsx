@@ -132,7 +132,7 @@ export default function LeftSection({
     };
 
     const handleHireClick = () => {
-        window.open("mailto:piyushraj26102004@gmail.com", "_blank")        
+        window.open("mailto:piyushraj26102004@gmail.com", "_blank")
         handleCloseModal();
     };
 
@@ -151,12 +151,13 @@ export default function LeftSection({
                             className="w-[300px] h-[300px] relative rounded shadow-lg hover:shadow-xl transition duration-300"
                         >
                             <Image
-                                src="/finalPFP.jpg"
+                                src="/pfp.jpg"
                                 alt="Profile"
                                 width={300}
                                 height={300}
                                 className="object-cover rounded-md"
                             />
+
                             <div className="absolute bottom-2 right-2 flex gap-3 z-10">
                                 <div className="relative group inline-block">
                                     <Tooltip text="MAIL" offsetX={-5} offsetY={-50}>
@@ -277,12 +278,13 @@ export default function LeftSection({
                         className="w-10 h-10 relative rounded-full overflow-hidden border border-neutral-700 hover:scale-105 transition-transform duration-200 cursor-pointer"
                     >
                         <Image
-                            src="/finalPFP.jpg"
+                            src="/pfp.jpg"
                             alt="Profile"
                             width={40}
                             height={40}
                             className="object-cover w-full h-full"
                         />
+
                     </button>
                     <div className="flex flex-col justify-center">
                         <span className={`text-sm font-semibold ${theme == "dark" ? "text-white" : "text-black"}`}>Piyush Raj</span>
