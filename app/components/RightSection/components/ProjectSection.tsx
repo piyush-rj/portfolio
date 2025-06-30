@@ -37,7 +37,7 @@ const projects = [
         description: "A PayTM-inspired advanced UI experiment.",
         github: "https://github.com/piyush-rj/paytm-adv",
         website: "#",
-        image: "/images/paytm.png",
+        image: "/payTM.jpeg",
         tech: ["React", "Framer Motion", "UI/UX"]
     }
 ];

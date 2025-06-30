@@ -91,7 +91,7 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
 
     gsap.to(e.currentTarget, {
       scale: 1.15,
-      rotation: 5,
+      rotation: 2,
       duration: 0.3,
       ease: "power2.out"
     });
