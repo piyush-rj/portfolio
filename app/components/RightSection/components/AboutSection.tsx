@@ -147,7 +147,7 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
                   height={35}
                   className={`${theme == "dark"
                     ? "text-[#0e76a8] hover:text-[#0e77a8be]"
-                    : "text-black hover:text-[#0e77a8be]"
+                    : "text-[#098fce]"
                     } transition-colors duration-200`}
                 />
               ),
@@ -162,7 +162,7 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
                   height={35}
                   className={`${theme == "dark"
                     ? "text-[#1DA1F2] hover:text-[#1da0f2e3]"
-                    : "text-black hover:text-[#1da0f2e3]"
+                    : "text-[#05629c]"
                     } transition-colors duration-200`}
                 />
               ),
@@ -177,7 +177,7 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
                   height={35}
                   className={`${theme == "dark"
                     ? "text-neutral-400 hover:text-neutral-500"
-                    : "text-black hover:text-neutral-700"
+                    : "text-neutral-800"
                     } transition-colors duration-200`}
                 />
               ),
@@ -221,7 +221,7 @@ export default function AboutSection({ onHover, onLeave, onClick }: AboutSection
                 height={35}
                 className={`${theme == "dark"
                   ? "text-rose-500 hover:text-rose-700"
-                  : "text-black hover:text-rose-500"
+                  : "text-rose-500"
                   } transition-colors duration-200`}
               />
             </Tooltip>

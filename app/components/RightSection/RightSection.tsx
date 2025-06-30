@@ -40,7 +40,7 @@ export default function RightSection({ selected }: RightSectionProps) {
 
         <div
             className={
-                `w-full sm:w-[75%] h-full flex z-10 px-5 py-12 pb-20 sm:px-8 sm:pb-20 ml-0 sm:ml-2 overflow-y-auto relative animated-vertical-border`
+                `w-full sm:w-[75%] h-full flex z-10 px-5 py-12 pb-20 sm:px-8 sm:pb-20 ml-0 sm:ml-2 overflow-y-auto relative`
             }
         >
 

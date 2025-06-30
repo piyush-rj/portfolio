@@ -3,12 +3,12 @@ import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import About from "./components/About";
-import AboutHeading from "./components/AboutHeading";
 import Heading from "./components/Heading";
 import Tooltip from "../Tooltip";
 import { useTheme } from "@/app/hooks/zustand";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, X } from "lucide-react";
 import ToolTip from "../Tooltip";
+import { PremiumProfileCard } from "../ui/ProfileCard";
 
 interface LeftSectionProps {
     onHoverSelect: (item: string) => void;
@@ -23,9 +23,11 @@ export default function LeftSection({
     const containerRef = useRef<HTMLDivElement>(null);
     const topNavRef = useRef<HTMLDivElement>(null);
     const bottomNavRef = useRef<HTMLDivElement>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     const { theme, setTheme } = useTheme();
     const [iconHovered, setIconHovered] = useState(false);
+    const [showProfileCard, setShowProfileCard] = useState(false);
     const iconRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
@@ -89,12 +91,57 @@ export default function LeftSection({
         }
     }, []);
 
+    // Modal animation effects
+    useEffect(() => {
+        if (showProfileCard && modalRef.current) {
+            // Animate modal in
+            gsap.fromTo(modalRef.current,
+                {
+                    opacity: 0,
+                    scale: 0.8,
+                    y: 50
+                },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 0.4,
+                    ease: "back.out(1.7)"
+                }
+            );
+        }
+    }, [showProfileCard]);
+
+    const handleCloseModal = () => {
+        if (modalRef.current) {
+            gsap.to(modalRef.current, {
+                opacity: 0,
+                scale: 0.8,
+                y: 50,
+                duration: 0.3,
+                ease: "power2.in",
+                onComplete: () => setShowProfileCard(false)
+            });
+        } else {
+            setShowProfileCard(false);
+        }
+    };
+
+    const handleProfileImageClick = () => {
+        setShowProfileCard(true);
+    };
+
+    const handleHireClick = () => {
+        window.open("mailto:piyushraj26102004@gmail.com", "_blank")        
+        handleCloseModal();
+    };
+
     return (
         <>
             {/* Desktop View */}
             <div
                 ref={containerRef}
-                className="hidden sm:flex h-full w-[25%] px-5 flex-col space-y-2 justify-center"
+                className="hidden sm:flex h-full w-[25%] px-5 flex-col space-y-2 justify-center animated-vertical-border"
             >
                 {/* Profile Image */}
                 <div className="flex justify-center p-1">
@@ -137,7 +184,7 @@ export default function LeftSection({
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                window.open("https://meet.google.com/", "_blank");
+                                                window.open("https://meet.google.com/new", "_blank");
                                             }}
                                             className="p-1 rounded-[10px] bg-neutral-800/50 hover:scale-110 hover:bg-black/50 backdrop-blur-md border border-white/20 text-white shadow-md transition-transform duration-300"
                                         >
@@ -225,7 +272,10 @@ export default function LeftSection({
             >
                 {/* Left: Profile Info */}
                 <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 relative rounded-full overflow-hidden border border-neutral-700">
+                    <button
+                        onClick={handleProfileImageClick}
+                        className="w-10 h-10 relative rounded-full overflow-hidden border border-neutral-700 hover:scale-105 transition-transform duration-200 cursor-pointer"
+                    >
                         <Image
                             src="/pfp.jpeg"
                             alt="Profile"
@@ -233,7 +283,7 @@ export default function LeftSection({
                             height={40}
                             className="object-cover w-full h-full"
                         />
-                    </div>
+                    </button>
                     <div className="flex flex-col justify-center">
                         <span className={`text-sm font-semibold ${theme == "dark" ? "text-white" : "text-black"}`}>Piyush Raj</span>
                         <span className={`text-xs ${theme == "dark" ? "text-neutral-400" : "text-neutral-800"}`}>Full-Stack Web Developer</span>
@@ -257,7 +307,7 @@ export default function LeftSection({
                     </button>
 
                     <button
-                        onClick={() => window.open("https://meet.google.com/", "_blank")}
+                        onClick={() => window.open("https://meet.google.com/new", "_blank")}
                         className={`p-2 rounded-lg backdrop-blur-md shadow-xs transition-all duration-200 hover:scale-105 ${theme == "dark" ? "bg-neutral-800/90 hover:bg-black/60 border border-white/20" : "bg-neutral-300 border border-neutral-300/50 hover:bg-neutral-400"}`}
                     >
                         <Image
@@ -327,6 +377,34 @@ export default function LeftSection({
                     )}
                 </button>
             </div>
+
+            {/* Profile Card Modal */}
+            {showProfileCard && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        onClick={handleCloseModal}
+                    />
+
+                    {/* Modal Content */}
+                    <div ref={modalRef} className="relative z-10 w-full max-w-sm">
+                        {/* Close Button */}
+                        <button
+                            onClick={handleCloseModal}
+                            className="absolute -top-12 right-2 z-20 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all duration-200"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+
+                        {/* Profile Card */}
+                        <PremiumProfileCard
+                            onHireClick={handleHireClick}
+                            className="transform-gpu"
+                        />
+                    </div>
+                </div>
+            )}
         </>
     );
 }

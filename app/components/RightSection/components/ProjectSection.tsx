@@ -50,7 +50,7 @@ export default function ProjectSection() {
     const tagRefs = useRef<(HTMLDivElement | null)[]>([]);
     const iconContainers = useRef<(HTMLDivElement | null)[]>([]);
     const { theme } = useTheme();
-    const [showTags, setShowTags] = useState(false);
+    const [showTags, setShowTags] = useState<boolean[]>(new Array(projects.length).fill(false));
 
     useEffect(() => {
         // Animate icon containers
@@ -112,8 +112,38 @@ export default function ProjectSection() {
         });
     };
 
+    const toggleTags = (index: number) => {
+        setShowTags(prev => prev.map((show, i) => i === index ? !show : show));
+
+        // Animate the tag container when toggling
+        const tagContainer = tagRefs.current[index];
+        if (tagContainer) {
+            const isShowing = !showTags[index];
+            if (isShowing) {
+                gsap.fromTo(
+                    tagContainer,
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.3 }
+                );
+                gsap.fromTo(
+                    tagContainer.children,
+                    { opacity: 0, y: 10 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.4,
+                        stagger: 0.1,
+                        ease: "power2.out"
+                    }
+                );
+            } else {
+                gsap.to(tagContainer, { opacity: 0, duration: 0.2 });
+            }
+        }
+    };
+
     return (
-        <div className={`relative px-4 sm:px-12 w-full font-sans overflow-x-hidden overflow-y-auto custom-scrollbar-hide ${theme === "dark" ? "bg-black text-neutral-100" : "bg-transparent text-black"}`}>
+        <div className={`relative px-4 sm:px-12 w-full font-sans overflow-x-hidden overflow-y-auto scrollbar-hide ${theme === "dark" ? "bg-black text-neutral-100" : "bg-transparent text-black"}`}>
             <div className="flex flex-col max-w-5xl mx-auto">
                 {projects.map((project, index) => (
                     <div
@@ -182,16 +212,17 @@ export default function ProjectSection() {
 
                                 <button
                                     className={`sm:hidden font-sans px-4 py-1 rounded-full shadow-inner text-xs font-semibold ${theme == "dark" ? "bg-neutral-200/20 text-neutral-300" : "bg-black text-white"}`}
-                                    onClick={() => setShowTags((prev) => !prev)}
+                                    onClick={() => toggleTags(index)}
                                 >
-                                    {showTags ? "Hide Stack" : "View Stack"}
+                                    {showTags[index] ? "Hide Stack" : "View Stack"}
                                 </button>
                             </div>
 
-                            {(showTags || typeof window !== "undefined" && window.innerWidth >= 640) && (
+                            {(showTags[index] || (typeof window !== "undefined" && window.innerWidth >= 640)) && (
                                 <div
                                     ref={(el) => { (tagRefs.current[index] = el) }}
-                                    className="mt-3 flex flex-wrap gap-2 opacity-0"
+                                    className="mt-3 flex flex-wrap gap-2"
+                                    style={{ opacity: showTags[index] || (typeof window !== "undefined" && window.innerWidth >= 640) ? 1 : 0 }}
                                 >
                                     {project.tech.map((tech, i) => (
                                         <div

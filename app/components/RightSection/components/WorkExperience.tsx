@@ -35,6 +35,46 @@ export default function WorkExperience({
     const isDark = theme === "dark";
     const [techPanel, setTechPanel] = useState<boolean>(false);
 
+    // Initial render animation
+    useEffect(() => {
+        if (!containerRef.current) return;
+
+        const ctx = gsap.context(() => {
+            // Set initial state immediately to prevent blinks
+            gsap.set(containerRef.current, {
+                opacity: 0,
+                scale: 0.8,
+                rotateX: -15,
+                transformPerspective: 1000
+            });
+
+            // Cool entrance animation
+            const tl = gsap.timeline();
+            tl.to(containerRef.current, {
+                opacity: 1,
+                scale: 1,
+                rotateX: 0,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+            })
+                .from(containerRef.current!.querySelector('[data-animate="card"]'), {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: "power3.out",
+                }, "-=0.4")
+                .from(containerRef.current!.querySelectorAll('[data-animate="element"]'), {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                }, "-=0.3");
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, []);
+
     useEffect(() => {
         const ctx = gsap.context(() => {
             gsap.from(cardRef.current, {
@@ -87,12 +127,14 @@ export default function WorkExperience({
     return (
         <div
             ref={containerRef}
-            className="w-full flex flex-col justify-center px-2 sm:px-6 md:px-12 py-10 font-sans"
+            className="w-full flex flex-col justify-center px-2 sm:px-6 md:px-12 py-10 font-sans overflow-x-hidden overflow-y-auto [::-webkit-scrollbar]:hidden [scrollbar-width:none]"
+            style={{ opacity: 0 }}
         >
             <div
                 onMouseEnter={() => setTechPanel(true)}
                 onMouseLeave={() => setTechPanel(false)}
                 className="relative w-full max-w-3xl"
+                data-animate="card"
             >
                 <div
                     ref={cardRef}
@@ -103,7 +145,7 @@ export default function WorkExperience({
                         }`}
                 >
                     {/* Left Section: stacked vertical layout */}
-                    <div className="w-full sm:w-36 flex flex-col gap-2">
+                    <div className="w-full sm:w-36 flex flex-col gap-2" data-animate="element">
                         {/* Image */}
                         <div className="relative w-full p-8 h-28 flex justify-center items-center rounded-md overflow-hidden bg-[#50130e] flex-shrink-0 border border-neutral-200 dark:border-neutral-800 group cursor-pointer">
                             <Image
@@ -170,7 +212,7 @@ export default function WorkExperience({
                     </div>
 
                     {/* Right section */}
-                    <div className="flex-1 space-y-4">
+                    <div className="flex-1 space-y-4" data-animate="element">
                         <div>
                             <h2 className={`text-xl font-semibold ${isDark ? "text-white" : "text-neutral-900"}`}>{title}</h2>
                             <p className={`text-sm ${isDark ? "text-neutral-400" : "text-neutral-800"}`}>{role}</p>
