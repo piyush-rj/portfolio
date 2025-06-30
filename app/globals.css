@@ -48,11 +48,11 @@
   height: 100%;
   background: linear-gradient(
     to bottom,
-    #ffd4d4,
+    #ffd4d43d,
     #fef6c0,
-    #c7f5ff,
-    #ffe0f0,
-    #ffd4d4
+    #c7f5ff50,
+    #ffe0f05e,
+    #ffd4d45e
   );
   background-size: 100% 300%;
   animation: scrollGradient 8s linear infinite;
@@ -68,8 +68,14 @@
   }
 }
 
-.custom-resizer::-webkit-resizer {
-    border-right: 1px solid gray;
-    border-bottom: 1px solid gray;
-    border-radius: 0 0 7px 0;
+
+
+/* globals.css */
+.scrollbar-hidden {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }

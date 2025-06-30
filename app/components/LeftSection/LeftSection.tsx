@@ -29,35 +29,16 @@ export default function LeftSection({
     useEffect(() => {
         const tl = gsap.timeline();
 
-        tl.set(imageRef.current, {
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            xPercent: -50,
-            yPercent: -50,
-            zIndex: 999,
-        })
-            .to(imageRef.current, {
-                duration: 1,
-                top: "initial",
-                left: "initial",
-                xPercent: 0,
-                yPercent: 0,
-                position: "static",
-                ease: "power3.out",
-            })
-            .from(
-                Array.from(containerRef.current?.children || []),
-                {
-                    opacity: 0,
-                    y: 20,
-                    stagger: 0.1,
-                    duration: 0.5,
-                    ease: "power2.out",
-                },
-                "+=0.2"
-            );
+        // Only animate scale/translate for entrance
+        tl.from(imageRef.current, {
+            opacity: 0,
+            y: -50,
+            scale: 0.95,
+            duration: 0.8,
+            ease: "power3.out",
+        });
 
+        // Floating animation
         gsap.to(imageRef.current, {
             y: 15,
             duration: 1.5,
@@ -66,6 +47,7 @@ export default function LeftSection({
             ease: "power1.inOut",
         });
     }, []);
+
 
     return (
         <>
@@ -150,6 +132,8 @@ export default function LeftSection({
                         />
                     </div>
 
+                  
+
                     <ToolTip text={theme == "dark" ? "Switch to Light" : "Switch to Dark"}>
                         <button
                             ref={iconRef}
@@ -157,6 +141,8 @@ export default function LeftSection({
                                 e.stopPropagation();
                                 setTheme(theme === 'dark' ? 'light' : 'dark');
                             }}
+
+
                             onMouseEnter={() => setIconHovered(true)}
                             onMouseLeave={() => setIconHovered(false)}
                             className="bg-neutral-900 p-3 rounded-xl hover:bg-neutral-800/80 group relative cursor-pointer"
@@ -223,7 +209,7 @@ export default function LeftSection({
                 <div className="flex gap-3 items-center">
                     <button
                         onClick={() => window.open("mailto:piyushraj26102004@gmail.com", "_blank")}
-                        className="p-2 rounded-lg bg-neutral-800/90 hover:bg-black/60 backdrop-blur-md border border-white/20"
+                        className={`p-2 rounded-lg  backdrop-blur-md shadow-xs ${theme == "dark" ? "bg-neutral-800/90 hover:bg-black/60 border border-white/20" : "bg-neutral-300 border border-neutral-300/50"}`}
                     >
                         <Image
                             src="/icons/Mail.svg"
@@ -237,7 +223,7 @@ export default function LeftSection({
 
                     <button
                         onClick={() => window.open("https://meet.google.com/", "_blank")}
-                        className="p-2 rounded-lg bg-neutral-800/90 hover:bg-black/60 backdrop-blur-md border border-white/20"
+                        className={`p-2 rounded-lg  backdrop-blur-md shadow-xs ${theme == "dark" ? "bg-neutral-800/90 hover:bg-black/60 border border-white/20" : "bg-neutral-300 border border-neutral-300/50"}`}
                     >
                         <Image
                             src="/icons/GoogleMeet.svg"
@@ -272,22 +258,12 @@ export default function LeftSection({
                 <button
                     ref={iconRef}
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                    onMouseEnter={() => setIconHovered(true)}
-                    onMouseLeave={() => setIconHovered(false)}
                     className=" rounded-xl  flex items-center justify-center relative "
                 >
                     {theme === "dark" ? (
                         <Sun className="w-4 h-4 text-amber-300 transition-transform group-hover:rotate-90" />
                     ) : (
                         <Moon className="w-4 h-4 text-neutral-500" />
-                    )}
-                    {iconHovered && (
-                        <div
-                            className={`absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-[999] px-2 text-xs rounded-md shadow-md whitespace-nowrap
-                ${theme === "dark" ? " text-black" : " text-white"}`}
-                        >
-                            {theme === "dark" ? "Switch to Light" : "Switch to Dark"}
-                        </div>
                     )}
                 </button>
             </div>

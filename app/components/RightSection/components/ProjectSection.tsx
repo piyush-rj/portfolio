@@ -48,19 +48,57 @@ export default function ProjectSection() {
     const githubIconRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const websiteIconRefs = useRef<(HTMLSpanElement | null)[]>([]);
     const tagRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const [showTags, setShowTags] = useState(false);
+    const iconContainers = useRef<(HTMLDivElement | null)[]>([]);
     const { theme } = useTheme();
+    const [showTags, setShowTags] = useState(false);
 
     useEffect(() => {
-        githubIconRefs.current.forEach((ref) => {
-            if (ref) gsap.set(ref, { opacity: 0, x: -5 });
+        // Animate icon containers
+        iconContainers.current.forEach((iconSet, i) => {
+            if (iconSet) {
+                gsap.fromTo(
+                    iconSet,
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.3, delay: 0.1 + i * 0.1 }
+                );
+
+                gsap.fromTo(
+                    iconSet.children,
+                    { opacity: 0, y: 10 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.5,
+                        ease: "power2.out",
+                        stagger: 0.15,
+                        delay: 0.2 + i * 0.1
+                    }
+                );
+            }
         });
-        websiteIconRefs.current.forEach((ref) => {
-            if (ref) gsap.set(ref, { opacity: 0, x: -5 });
-        });
-        tagRefs.current.forEach((ref) => {
-            if (ref)
-                gsap.fromTo(ref, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 });
+
+        // Animate tag containers
+        tagRefs.current.forEach((el, i) => {
+            if (el) {
+                gsap.fromTo(
+                    el,
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.3, delay: 0.4 + i * 0.1 }
+                );
+
+                gsap.fromTo(
+                    el.children,
+                    { opacity: 0, y: 10 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.4,
+                        stagger: 0.1,
+                        delay: 0.5 + i * 0.1,
+                        ease: "power2.out"
+                    }
+                );
+            }
         });
     }, []);
 
@@ -70,12 +108,12 @@ export default function ProjectSection() {
             opacity: show ? 1 : 0,
             x: show ? 0 : -5,
             duration: 0.3,
-            ease: "power2.out",
+            ease: "power2.out"
         });
     };
 
     return (
-        <div className={`relative px-4 sm:px-12 w-full font-sans overflow-y-auto overflow-x-hidden [::-webkit-scrollbar]:hidden [scrollbar-width:none] ${theme === "dark" ? "bg-black text-neutral-100" : "bg-transparent text-black"}`}>
+        <div className={`relative px-4 sm:px-12 w-full font-sans overflow-x-hidden overflow-y-auto custom-scrollbar-hide ${theme === "dark" ? "bg-black text-neutral-100" : "bg-transparent text-black"}`}>
             <div className="flex flex-col max-w-5xl mx-auto">
                 {projects.map((project, index) => (
                     <div
@@ -86,7 +124,7 @@ export default function ProjectSection() {
                         onMouseMove={(e) =>
                             setCoords({
                                 x: e.clientX + 200,
-                                y: e.clientY + window.scrollY - 150,
+                                y: e.clientY + window.scrollY - 150
                             })
                         }
                     >
@@ -108,7 +146,10 @@ export default function ProjectSection() {
                                 {project.description}
                             </p>
 
-                            <div className="flex flex-row gap-4 mt-4 text-sm">
+                            <div
+                                className="flex flex-row gap-4 mt-4 text-sm opacity-0"
+                                ref={(el) => { (iconContainers.current[index] = el) }}
+                            >
                                 <ToolTip text="Github">
                                     <Link
                                         href={project.github}
@@ -119,6 +160,7 @@ export default function ProjectSection() {
                                     >
                                         <span className="inline-flex items-center gap-2">
                                             <GithubIcon />
+                                            <span ref={(el) => { (githubIconRefs.current[index] = el) }} />
                                         </span>
                                     </Link>
                                 </ToolTip>
@@ -133,22 +175,23 @@ export default function ProjectSection() {
                                     >
                                         <span className="inline-flex items-center gap-2">
                                             {project.name === "PayTM Adv" ? <WifiOff /> : <Wifi />}
+                                            <span ref={(el) => { (websiteIconRefs.current[index] = el) }} />
                                         </span>
                                     </Link>
                                 </ToolTip>
 
                                 <button
-                                    className={`sm:hidden  font-sans px-4 py-1 rounded-full shadow-inner text-xs font-semibold ${theme == "dark" ? "bg-neutral-200/20 text-neutral-300" : "bg-black text-white"}`}
+                                    className={`sm:hidden font-sans px-4 py-1 rounded-full shadow-inner text-xs font-semibold ${theme == "dark" ? "bg-neutral-200/20 text-neutral-300" : "bg-black text-white"}`}
                                     onClick={() => setShowTags((prev) => !prev)}
                                 >
                                     {showTags ? "Hide Stack" : "View Stack"}
                                 </button>
                             </div>
 
-                            {(showTags || typeof window !== 'undefined' && window.innerWidth >= 640) && (
+                            {(showTags || typeof window !== "undefined" && window.innerWidth >= 640) && (
                                 <div
-                                    ref={(el) => {(tagRefs.current[index] = el)}}
-                                    className="mt-3 flex flex-wrap gap-2"
+                                    ref={(el) => { (tagRefs.current[index] = el) }}
+                                    className="mt-3 flex flex-wrap gap-2 opacity-0"
                                 >
                                     {project.tech.map((tech, i) => (
                                         <div
@@ -179,6 +222,7 @@ export default function ProjectSection() {
                     />
                 </div>
             )}
+            <div className="w-full h-full flex justify-center items-center px-8 py-2 mb-10 md:hidden"></div>
         </div>
     );
 }

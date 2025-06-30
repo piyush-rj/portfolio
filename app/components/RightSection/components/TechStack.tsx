@@ -34,7 +34,7 @@ const logos: Logos[] = [
 
 export default function TechStack() {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const {theme} = useTheme();
+  const { theme } = useTheme();
 
   const handleAnimation = (el: HTMLDivElement | null) => {
     if (!el) return;
@@ -75,7 +75,7 @@ export default function TechStack() {
 
         {logos.map((tech, i) => (
           <Tooltip key={tech.name + i} text={tech.name}>
-            <div className={`logo w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-xl p-2 flex items-center justify-center
+            <div className={`logo opacity-0 w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px] lg:w-[80px] lg:h-[80px] rounded-xl p-2 flex items-center justify-center
                shadow-inner hover:shadow-xl transition-all hover:scale-110 ${theme == "dark" ? "bg-neutral-900 border border-neutral-900" : "bg-neutral-200 border border-neutral-500"}`}>
               {typeof tech.url === "string" ? (
                 <img

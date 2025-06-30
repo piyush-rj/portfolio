@@ -38,44 +38,57 @@ export default function RightSection({ selected }: RightSectionProps) {
 
     return (
 
-    <div
-        className={clsx(
-            "w-full sm:w-[75%] h-full flex z-[99] px-4 sm:px-8 pb-28 sm:pb-20 ml-0 sm:ml-2 overflow-y-auto relative",
-            // {
-            //     "animated-vertical-border": typeof window !== "undefined" && window.innerWidth >= 640,
-            // }
-        )}
-    >
+        <div
+            className={
+                `w-full sm:w-[75%] h-full flex z-10 px-5 py-12 pb-20 sm:px-8 sm:pb-20 ml-0 sm:ml-2 overflow-y-auto relative `
+            }
+        >
 
-        {selected === "About" && (
-            <div className="w-full h-full">
-                <AboutSection onHover={handleAboutHover} onLeave={handleAboutLeave} />
-            </div>
-        )}
 
-        {selected === "Projects" && (
-            <div className="w-full h-full">
-                <ProjectSection />
-            </div>
-        )}
+            {selected === "About" && (
+                <div className="w-full h-full">
+                    <AboutSection onHover={handleAboutHover} onLeave={handleAboutLeave} />
+                </div>
+            )}
 
-        {selected === "Tech Stack" && (
-            <div className="w-full h-full">
-                <TechStack />
-            </div>
-        )}
+            {selected === "Projects" && (
+                <div className="w-full h-full">
+                    <ProjectSection />
+                </div>
+            )}
 
-        {selected === "Work Experience" && (
-            <div className="w-full h-full">
-                <WorkExperience />
-            </div>
-        )}
+            {selected === "Tech Stack" && (
+                <div className="w-full h-full">
+                    <TechStack />
+                </div>
+            )}
 
-        {/* {selected === "Education" && (
+            {selected === "Work Experience" && (
+                <div className="w-full h-full p-5 mb-20">
+                    <WorkExperience
+                        title="Wallpaper Heaven"
+                        role="Full-Stack Developer"
+                        timeline="May – June 2025"
+                        image="/wallpaperHeavenLogo.png"
+                        imageURL="https://wallpaperheaven.live"
+                        description={[
+                            "Designed and deployed a clean, responsive website for a premium wall design studio.",
+                            "Used Next.js and Tailwind CSS for a modern frontend experience.",
+                            "Built a custom admin panel for managing offers and collections.",
+                            "Integrated dynamic content using TypeScript and Prisma ORM.",
+                            "Optimized for SEO and deployed on AWS EC2.",
+                        ]}
+                        techstack={["Next.js", "Tailwind", "TypeScript", "Prisma", "AWS"]}
+                    />
+                </div>
+            )}
+
+
+            {/* {selected === "Education" && (
         <div className="w-full h-full">
           <Education />
         </div>
       )} */}
-    </div>
+        </div>
     );
 }
