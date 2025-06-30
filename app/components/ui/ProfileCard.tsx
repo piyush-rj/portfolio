@@ -62,7 +62,7 @@ export const PremiumProfileCard = ({ className = "", onHireClick }: PremiumProfi
                                 <Image
                                     width={20}
                                     height={20}
-                                    src="/pfp.jpeg"
+                                    src="/finalPFP.jpg"
                                     alt="Piyush Raj"
                                     className="w-full h-full object-cover"
                                     unoptimized

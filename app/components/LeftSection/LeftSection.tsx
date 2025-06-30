@@ -151,7 +151,7 @@ export default function LeftSection({
                             className="w-[300px] h-[300px] relative rounded shadow-lg hover:shadow-xl transition duration-300"
                         >
                             <Image
-                                src="/pfp.jpeg"
+                                src="/finalPFP.jpg"
                                 alt="Profile"
                                 width={300}
                                 height={300}
@@ -277,7 +277,7 @@ export default function LeftSection({
                         className="w-10 h-10 relative rounded-full overflow-hidden border border-neutral-700 hover:scale-105 transition-transform duration-200 cursor-pointer"
                     >
                         <Image
-                            src="/pfp.jpeg"
+                            src="/finalPFP.jpg"
                             alt="Profile"
                             width={40}
                             height={40}
