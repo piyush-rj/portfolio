@@ -7,7 +7,7 @@ export default function MainSection() {
     const [selected, setSelected] = useState<string>("About");
 
     return (
-        <div className="h-full w-full sm:h-[80%] sm:w-[80%] relative flex justify-center">
+        <div className="h-full w-full sm:h-[82%] sm:w-[80%] relative flex justify-center">
             <LeftSection onHoverSelect={(item) => setSelected(item)} selected={selected} />
             <RightSection selected={selected} />
         </div>

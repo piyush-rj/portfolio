@@ -21,11 +21,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Piyush Raj — Full Stack Developer",
   description: "Portfolio of Piyush Raj — Building web3, full-stack, and high-performance applications.",
+  icons: {
+    icon: "/icons/favicon.ico",
+    shortcut: "/icons/favicon.ico",
+    apple: "/icons/favicon.ico",
+  },
   openGraph: {
-    title: "Anjan Suman — Full Stack Developer",
+    title: "Piyush Raj — Full Stack Developer",
     description: "Explore projects, skills, and contact info.",
-    url: "https://your-domain.com",
-    siteName: "Anjan Suman Portfolio",
+    url: "https://portfolio-piyush-one.vercel.app",
+    siteName: "Piyush Raj Portfolio",
     images: [
       {
         url: "/images/preview.jpg",
