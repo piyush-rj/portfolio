@@ -18,7 +18,7 @@ const projects = [
     },
     {
         name: "SolDrop",
-        description: "Effortless Solana faucet for devs.",
+        description: "Effortless Solana Drop for devs.",
         github: "https://github.com/piyush-rj/soldrop",
         website: "https://soldrop-ashen.vercel.app/",
         image: "/soldrop.png",
