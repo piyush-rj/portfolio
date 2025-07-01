@@ -15,16 +15,12 @@ interface LeftSectionProps {
     selected: string;
 }
 
-export default function LeftSection({
-    onHoverSelect,
-    selected,
-}: LeftSectionProps) {
+export default function LeftSection({ onHoverSelect, selected }: LeftSectionProps) {
     const imageRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const topNavRef = useRef<HTMLDivElement>(null);
     const bottomNavRef = useRef<HTMLDivElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
-
     const { theme, setTheme } = useTheme();
     const [iconHovered, setIconHovered] = useState(false);
     const [showProfileCard, setShowProfileCard] = useState(false);
@@ -32,7 +28,6 @@ export default function LeftSection({
 
     useEffect(() => {
         const tl = gsap.timeline();
-
         // Desktop animations
         if (imageRef.current) {
             tl.from(imageRef.current, {
@@ -42,7 +37,6 @@ export default function LeftSection({
                 duration: 0.8,
                 ease: "power3.out",
             });
-
             // Floating animation
             gsap.to(imageRef.current, {
                 y: 15,
@@ -52,14 +46,12 @@ export default function LeftSection({
                 ease: "power1.inOut",
             });
         }
-
         // Mobile navbar animations
         if (topNavRef.current) {
             gsap.set(topNavRef.current, {
                 y: -100,
                 opacity: 0
             });
-
             gsap.to(topNavRef.current, {
                 y: 0,
                 opacity: 1,
@@ -68,14 +60,12 @@ export default function LeftSection({
                 delay: 0.2
             });
         }
-
         if (bottomNavRef.current) {
             gsap.set(bottomNavRef.current, {
                 y: 100,
                 opacity: 0,
                 scale: 0.9
             });
-
             gsap.to(bottomNavRef.current, {
                 y: 0,
                 opacity: 1,
@@ -133,27 +123,27 @@ export default function LeftSection({
 
     return (
         <>
-            {/* Desktop View - Responsive height and width */}
+            {/* Desktop View  */}
             <div
                 ref={containerRef}
-                className="hidden sm:flex min-h-full w-full sm:w-[35%] md:w-[32%] lg:w-[28%] xl:w-[25%] px-2 sm:px-3 md:px-4 lg:px-5 flex-col space-y-2 justify-center animated-vertical-border"
+                className="hidden sm:flex w-full sm:w-[35%] md:w-[32%] lg:w-[28%] xl:w-[25%] px-2 sm:px-3 md:px-4 lg:px-5 flex-col justify-start py-4 animated-vertical-border overflow-y-auto"
+                style={{ maxHeight: 'calc(100vh - 8rem)' }}
             >
-                {/* Profile Image - Responsive sizing */}
-                <div className="flex justify-center p-1">
+                {/* Profile Image */}
+                <div className="flex justify-center p-1 mb-2 sm:mb-3 md:mb-4 flex-shrink-0">
                     <div className="w-full flex justify-center items-center">
                         <div
                             ref={imageRef}
-                            className="w-[180px] h-[180px] sm:w-[200px] sm:h-[200px] md:w-[220px] md:h-[220px] lg:w-[250px] lg:h-[250px] xl:w-[280px] xl:h-[280px] 2xl:w-[300px] 2xl:h-[300px] relative rounded shadow-lg hover:shadow-xl transition duration-300"
+                            className="w-[120px] h-[120px] sm:w-[140px] sm:h-[140px] md:w-[160px] md:h-[160px] lg:w-[180px] lg:h-[180px] xl:w-[200px] xl:h-[200px] 2xl:w-[220px] 2xl:h-[220px] relative rounded shadow-lg hover:shadow-xl transition duration-300"
                         >
                             <Image
                                 src="/pfp.jpg"
                                 alt="Profile"
-                                width={300}
-                                height={300}
+                                width={220}
+                                height={220}
                                 className="object-cover rounded-md w-full h-full"
                             />
-
-                            <div className="absolute bottom-2 right-2 flex gap-2 lg:gap-3 z-10">
+                            <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex gap-1 sm:gap-2 z-10">
                                 <div className="relative group inline-block">
                                     <Tooltip text="MAIL" offsetX={-5} offsetY={-50}>
                                         <button
@@ -161,20 +151,19 @@ export default function LeftSection({
                                                 e.stopPropagation();
                                                 window.open("mailto:piyushraj26102004@gmail.com", "_blank");
                                             }}
-                                            className="p-1 rounded-[10px] hover:scale-110 bg-neutral-800/50 backdrop-blur-md border border-white/20 text-white shadow-md hover:bg-black/50 transition-transform duration-300"
+                                            className="p-1 rounded-[8px] hover:scale-110 bg-neutral-800/50 backdrop-blur-md border border-white/20 text-white shadow-md hover:bg-black/50 transition-transform duration-300"
                                         >
                                             <Image
                                                 src="/icons/Mail.svg"
                                                 alt="Mail Icon"
-                                                width={25}
-                                                height={25}
-                                                className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 p-1 rounded-full object-contain cursor-pointer"
+                                                width={20}
+                                                height={20}
+                                                className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 p-0.5 rounded-full object-contain cursor-pointer"
                                                 unoptimized
                                             />
                                         </button>
                                     </Tooltip>
                                 </div>
-
                                 <div className="relative group inline-block">
                                     <Tooltip text="BOOK A MEET" offsetX={-10} offsetY={-50}>
                                         <button
@@ -182,14 +171,14 @@ export default function LeftSection({
                                                 e.stopPropagation();
                                                 window.open("https://meet.google.com/new", "_blank");
                                             }}
-                                            className="p-1 rounded-[10px] bg-neutral-800/50 hover:scale-110 hover:bg-black/50 backdrop-blur-md border border-white/20 text-white shadow-md transition-transform duration-300"
+                                            className="p-1 rounded-[8px] bg-neutral-800/50 hover:scale-110 hover:bg-black/50 backdrop-blur-md border border-white/20 text-white shadow-md transition-transform duration-300"
                                         >
                                             <Image
                                                 src="/icons/GoogleMeet.svg"
                                                 alt="Google Meet"
-                                                width={25}
-                                                height={25}
-                                                className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 p-1 object-contain cursor-pointer"
+                                                width={20}
+                                                height={20}
+                                                className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 p-0.5 object-contain cursor-pointer"
                                                 unoptimized
                                             />
                                         </button>
@@ -200,73 +189,79 @@ export default function LeftSection({
                     </div>
                 </div>
 
-                {/* Headings */}
-                <div className="flex items-center w-full space-x-2">
-                    <div
-                        className="flex-1"
-                        onPointerEnter={() => onHoverSelect("About")}
-                    >
-                        <Heading
-                            text="About"
-                            tooltip="Yep! That's me :)"
-                            isActive={selected === "About"}
-                        />
+
+                <div className="flex-1 flex flex-col gap-1 sm:gap-2 md:gap-3 min-h-0">
+                    {/* Headings */}
+                    <div className="flex items-center w-full space-x-2 flex-shrink-0">
+                        <div
+                            className="flex-1"
+                            onPointerEnter={() => onHoverSelect("About")}
+                        >
+                            <Heading
+                                text="About"
+                                tooltip="Yep! That's me :)"
+                                isActive={selected === "About"}
+                            />
+                        </div>
+                        <ToolTip text={theme == "dark" ? "Switch to Light" : "Switch to Dark"}>
+                            <button
+                                ref={iconRef}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setTheme(theme === 'dark' ? 'light' : 'dark');
+                                }}
+                                onMouseEnter={() => setIconHovered(true)}
+                                onMouseLeave={() => setIconHovered(false)}
+                                className="bg-neutral-900 p-1.5 sm:p-2 md:p-3 rounded-xl hover:bg-neutral-800/80 group relative cursor-pointer flex-shrink-0"
+                            >
+                                {theme === 'dark' ? (
+                                    <Sun className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-amber-300 group-hover:rotate-90 transition-transform" />
+                                ) : (
+                                    <Moon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-neutral-400" />
+                                )}
+                            </button>
+                        </ToolTip>
                     </div>
 
-                    <ToolTip text={theme == "dark" ? "Switch to Light" : "Switch to Dark"}>
-                        <button
-                            ref={iconRef}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setTheme(theme === 'dark' ? 'light' : 'dark');
-                            }}
-                            onMouseEnter={() => setIconHovered(true)}
-                            onMouseLeave={() => setIconHovered(false)}
-                            className="bg-neutral-900 p-2 md:p-3 rounded-xl hover:bg-neutral-800/80 group relative cursor-pointer"
-                        >
-                            {theme === 'dark' ? (
-                                <Sun className="w-4 h-4 md:w-5 md:h-5 text-amber-300 group-hover:rotate-90 transition-transform" />
-                            ) : (
-                                <Moon className="w-4 h-4 md:w-5 md:h-5 text-neutral-400" />
-                            )}
-                        </button>
-                    </ToolTip>
-                </div>
+                    {/* About section */}
+                    <div className="flex-shrink-0 min-h-0">
+                        <About />
+                    </div>
 
-                <About />
-
-                <div onPointerEnter={() => onHoverSelect("Projects")}>
-                    <Heading
-                        text="Projects"
-                        tooltip="My builds"
-                        isActive={selected === "Projects"}
-                        onHover={(item) => onHoverSelect(item)}
-                    />
-                </div>
-
-                <div onPointerEnter={() => onHoverSelect("Tech Stack")}>
-                    <Heading
-                        text="Tech Stack"
-                        tooltip="Yeah! I know them all"
-                        isActive={selected === "Tech Stack"}
-                    />
-                </div>
-
-                <div onPointerEnter={() => onHoverSelect("Work Experience")}>
-                    <Heading
-                        text="Work Experience"
-                        tooltip="Look at my contributions"
-                        isActive={selected === "Work Experience"}
-                    />
+                    {/* Navigation items */}
+                    <div className="flex flex-col gap-1 sm:gap-2 flex-shrink-0">
+                        <div onPointerEnter={() => onHoverSelect("Projects")}>
+                            <Heading
+                                text="Projects"
+                                tooltip="My builds"
+                                isActive={selected === "Projects"}
+                                onHover={(item) => onHoverSelect(item)}
+                            />
+                        </div>
+                        <div onPointerEnter={() => onHoverSelect("Tech Stack")}>
+                            <Heading
+                                text="Tech Stack"
+                                tooltip="Yeah! I know them all"
+                                isActive={selected === "Tech Stack"}
+                            />
+                        </div>
+                        <div onPointerEnter={() => onHoverSelect("Work Experience")}>
+                            <Heading
+                                text="Work Experience"
+                                tooltip="Look at my contributions"
+                                isActive={selected === "Work Experience"}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Mobile view - top navbar - unchanged */}
+            {/* Mobile view - top navbar */}
             <div
                 ref={topNavRef}
                 className={`sm:hidden fixed top-0 left-0 right-0 z-50 px-4 py-2 flex items-center justify-between backdrop-blur-md shadow-md font-sans ${theme == "dark" ? "bg-black/30 border-b border-white/10" : "bg-neutral-200"}`}
             >
-                {/* Left: Profile Info */}
+                {/* Left: Profile */}
                 <div className="flex items-center gap-3">
                     <button
                         onClick={handleProfileImageClick}
@@ -285,7 +280,6 @@ export default function LeftSection({
                         <span className={`text-xs ${theme == "dark" ? "text-neutral-400" : "text-neutral-800"}`}>Full-Stack Web Developer</span>
                     </div>
                 </div>
-
                 {/* Mail + Meet Buttons */}
                 <div className="flex gap-3 items-center">
                     <button
@@ -301,7 +295,6 @@ export default function LeftSection({
                             unoptimized
                         />
                     </button>
-
                     <button
                         onClick={() => window.open("https://meet.google.com/new", "_blank")}
                         className={`p-2 rounded-lg backdrop-blur-md shadow-xs transition-all duration-200 hover:scale-105 ${theme == "dark" ? "bg-neutral-800/90 hover:bg-black/60 border border-white/20" : "bg-neutral-300 border border-neutral-300/50 hover:bg-neutral-400"}`}
@@ -318,7 +311,7 @@ export default function LeftSection({
                 </div>
             </div>
 
-            {/* Mobile view - bottom navbar - unchanged */}
+            {/* Mobile view - bottom navbar */}
             <div
                 ref={bottomNavRef}
                 className={`sm:hidden fixed bottom-4 left-4 right-4 z-50 p-3 font-sans rounded-xl backdrop-blur-md shadow-lg flex items-center justify-around ${theme == "dark" ? "bg-black/30 border border-white/10" : "bg-neutral-200"}`}
@@ -331,7 +324,6 @@ export default function LeftSection({
                         About
                     </span>
                 </button>
-
                 <button
                     onClick={() => onHoverSelect("Projects")}
                     className="transition-all duration-200 hover:scale-110"
@@ -340,7 +332,6 @@ export default function LeftSection({
                         Projects
                     </span>
                 </button>
-
                 <button
                     onClick={() => onHoverSelect("Tech Stack")}
                     className="transition-all duration-200 hover:scale-110"
@@ -349,7 +340,6 @@ export default function LeftSection({
                         Tech
                     </span>
                 </button>
-
                 <button
                     onClick={() => onHoverSelect("Work Experience")}
                     className="transition-all duration-200 hover:scale-110"
@@ -358,9 +348,7 @@ export default function LeftSection({
                         Work
                     </span>
                 </button>
-
                 <span className="text-neutral-500">|</span>
-
                 <button
                     ref={iconRef}
                     onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -374,7 +362,7 @@ export default function LeftSection({
                 </button>
             </div>
 
-            {/* Profile Card Modal - unchanged */}
+            {/* Profile Card */}
             {showProfileCard && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                     <div
