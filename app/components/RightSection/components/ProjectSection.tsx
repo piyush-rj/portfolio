@@ -10,7 +10,7 @@ import ToolTip from "../../Tooltip";
 const projects = [
     {
         name: "ByteWords",
-        description: "Crafted storytelling for brands powered by AI.",
+        description: "Crafted dark-themed blogging website for devs.",
         github: "https://github.com/piyush-rj/bytewords",
         website: "https://bytewords-pi.vercel.app/",
         image: "/ByteWords.png",
@@ -18,7 +18,7 @@ const projects = [
     },
     {
         name: "SolDrop",
-        description: "Effortless Solana NFT claim experience.",
+        description: "Effortless Solana faucet for devs.",
         github: "https://github.com/piyush-rj/soldrop",
         website: "https://soldrop-ashen.vercel.app/",
         image: "/soldrop.png",
@@ -26,7 +26,7 @@ const projects = [
     },
     {
         name: "NexWallet",
-        description: "A smooth wallet UI for Web3 users.",
+        description: "A smooth wallet skeleton for Web3 users.",
         github: "https://github.com/piyush-rj/nexwallet",
         website: "https://nexwallet-pink.vercel.app/",
         image: "/NexWallet.png",
