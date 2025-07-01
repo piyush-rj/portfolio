@@ -37,34 +37,29 @@ export default function RightSection({ selected }: RightSectionProps) {
     };
 
     return (
-
         <div
-            className={
-                `w-full sm:w-[75%] h-full flex z-10 px-5 py-12 pb-20 sm:px-8 sm:pb-20 ml-0 sm:ml-2 overflow-y-auto relative`
-            }
+            className="w-full sm:w-[65%] md:w-[68%] lg:w-[72%] xl:w-[75%] min-h-full flex z-10 px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12 pb-20 sm:pb-20 ml-0 sm:ml-2 overflow-y-auto relative"
         >
-
-
             {selected === "About" && (
-                <div className="w-full h-full">
+                <div className="w-full min-h-full flex flex-col">
                     <AboutSection onHover={handleAboutHover} onLeave={handleAboutLeave} />
                 </div>
             )}
 
             {selected === "Projects" && (
-                <div className="w-full h-full">
+                <div className="w-full min-h-full flex flex-col">
                     <ProjectSection />
                 </div>
             )}
 
             {selected === "Tech Stack" && (
-                <div className="w-full h-full">
+                <div className="w-full min-h-full flex flex-col">
                     <TechStack />
                 </div>
             )}
 
             {selected === "Work Experience" && (
-                <div className="w-full h-full p-5 mb-20">
+                <div className="w-full min-h-full flex flex-col p-3 md:p-5 mb-20">
                     <WorkExperience
                         title="Wallpaper Heaven"
                         role="Full-Stack Developer"
@@ -82,13 +77,6 @@ export default function RightSection({ selected }: RightSectionProps) {
                     />
                 </div>
             )}
-
-
-            {/* {selected === "Education" && (
-        <div className="w-full h-full">
-          <Education />
-        </div>
-      )} */}
         </div>
     );
 }

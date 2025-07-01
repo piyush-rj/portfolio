@@ -55,13 +55,11 @@ export default function LeftSection({
 
         // Mobile navbar animations
         if (topNavRef.current) {
-            // Set initial state to prevent flash
             gsap.set(topNavRef.current, {
                 y: -100,
                 opacity: 0
             });
 
-            // Animate in
             gsap.to(topNavRef.current, {
                 y: 0,
                 opacity: 1,
@@ -72,14 +70,12 @@ export default function LeftSection({
         }
 
         if (bottomNavRef.current) {
-            // Set initial state to prevent flash
             gsap.set(bottomNavRef.current, {
                 y: 100,
                 opacity: 0,
                 scale: 0.9
             });
 
-            // Animate in
             gsap.to(bottomNavRef.current, {
                 y: 0,
                 opacity: 1,
@@ -94,7 +90,6 @@ export default function LeftSection({
     // Modal animation effects
     useEffect(() => {
         if (showProfileCard && modalRef.current) {
-            // Animate modal in
             gsap.fromTo(modalRef.current,
                 {
                     opacity: 0,
@@ -138,27 +133,27 @@ export default function LeftSection({
 
     return (
         <>
-            {/* Desktop View */}
+            {/* Desktop View - Responsive height and width */}
             <div
                 ref={containerRef}
-                className="hidden sm:flex h-full w-[25%] px-5 flex-col space-y-2 justify-center animated-vertical-border"
+                className="hidden sm:flex min-h-full w-full sm:w-[35%] md:w-[32%] lg:w-[28%] xl:w-[25%] px-2 sm:px-3 md:px-4 lg:px-5 flex-col space-y-2 justify-center animated-vertical-border"
             >
-                {/* Profile Image */}
+                {/* Profile Image - Responsive sizing */}
                 <div className="flex justify-center p-1">
                     <div className="w-full flex justify-center items-center">
                         <div
                             ref={imageRef}
-                            className="w-[300px] h-[300px] relative rounded shadow-lg hover:shadow-xl transition duration-300"
+                            className="w-[180px] h-[180px] sm:w-[200px] sm:h-[200px] md:w-[220px] md:h-[220px] lg:w-[250px] lg:h-[250px] xl:w-[280px] xl:h-[280px] 2xl:w-[300px] 2xl:h-[300px] relative rounded shadow-lg hover:shadow-xl transition duration-300"
                         >
                             <Image
                                 src="/pfp.jpg"
                                 alt="Profile"
                                 width={300}
                                 height={300}
-                                className="object-cover rounded-md"
+                                className="object-cover rounded-md w-full h-full"
                             />
 
-                            <div className="absolute bottom-2 right-2 flex gap-3 z-10">
+                            <div className="absolute bottom-2 right-2 flex gap-2 lg:gap-3 z-10">
                                 <div className="relative group inline-block">
                                     <Tooltip text="MAIL" offsetX={-5} offsetY={-50}>
                                         <button
@@ -173,7 +168,7 @@ export default function LeftSection({
                                                 alt="Mail Icon"
                                                 width={25}
                                                 height={25}
-                                                className="h-8 w-8 p-1 rounded-full object-contain cursor-pointer"
+                                                className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 p-1 rounded-full object-contain cursor-pointer"
                                                 unoptimized
                                             />
                                         </button>
@@ -194,7 +189,7 @@ export default function LeftSection({
                                                 alt="Google Meet"
                                                 width={25}
                                                 height={25}
-                                                className="h-8 w-8 p-1 object-contain cursor-pointer"
+                                                className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 p-1 object-contain cursor-pointer"
                                                 unoptimized
                                             />
                                         </button>
@@ -227,12 +222,12 @@ export default function LeftSection({
                             }}
                             onMouseEnter={() => setIconHovered(true)}
                             onMouseLeave={() => setIconHovered(false)}
-                            className="bg-neutral-900 p-3 rounded-xl hover:bg-neutral-800/80 group relative cursor-pointer"
+                            className="bg-neutral-900 p-2 md:p-3 rounded-xl hover:bg-neutral-800/80 group relative cursor-pointer"
                         >
                             {theme === 'dark' ? (
-                                <Sun className="w-5 h-5 text-amber-300 group-hover:rotate-90 transition-transform" />
+                                <Sun className="w-4 h-4 md:w-5 md:h-5 text-amber-300 group-hover:rotate-90 transition-transform" />
                             ) : (
-                                <Moon className="w-5 h-5 text-neutral-400" />
+                                <Moon className="w-4 h-4 md:w-5 md:h-5 text-neutral-400" />
                             )}
                         </button>
                     </ToolTip>
@@ -266,7 +261,7 @@ export default function LeftSection({
                 </div>
             </div>
 
-            {/* Mobile view - top navbar */}
+            {/* Mobile view - top navbar - unchanged */}
             <div
                 ref={topNavRef}
                 className={`sm:hidden fixed top-0 left-0 right-0 z-50 px-4 py-2 flex items-center justify-between backdrop-blur-md shadow-md font-sans ${theme == "dark" ? "bg-black/30 border-b border-white/10" : "bg-neutral-200"}`}
@@ -284,7 +279,6 @@ export default function LeftSection({
                             height={40}
                             className="object-cover w-full h-full"
                         />
-
                     </button>
                     <div className="flex flex-col justify-center">
                         <span className={`text-sm font-semibold ${theme == "dark" ? "text-white" : "text-black"}`}>Piyush Raj</span>
@@ -324,7 +318,7 @@ export default function LeftSection({
                 </div>
             </div>
 
-            {/* Mobile view - bottom navbar */}
+            {/* Mobile view - bottom navbar - unchanged */}
             <div
                 ref={bottomNavRef}
                 className={`sm:hidden fixed bottom-4 left-4 right-4 z-50 p-3 font-sans rounded-xl backdrop-blur-md shadow-lg flex items-center justify-around ${theme == "dark" ? "bg-black/30 border border-white/10" : "bg-neutral-200"}`}
@@ -380,26 +374,20 @@ export default function LeftSection({
                 </button>
             </div>
 
-            {/* Profile Card Modal */}
+            {/* Profile Card Modal - unchanged */}
             {showProfileCard && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    {/* Backdrop */}
                     <div
                         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                         onClick={handleCloseModal}
                     />
-
-                    {/* Modal Content */}
                     <div ref={modalRef} className="relative z-10 w-full max-w-sm">
-                        {/* Close Button */}
                         <button
                             onClick={handleCloseModal}
                             className="absolute -top-12 right-2 z-20 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all duration-200"
                         >
                             <X className="w-5 h-5" />
                         </button>
-
-                        {/* Profile Card */}
                         <PremiumProfileCard
                             onHireClick={handleHireClick}
                             className="transform-gpu"
