@@ -39,6 +39,14 @@ const projects = [
         website: "#",
         image: "/payTM.jpeg",
         tech: ["React", "Framer Motion", "UI/UX"]
+    },
+    {
+        name: "Portfolio",
+        description: "The one you are looking at.",
+        github: "https://github.com/piyush-rj/portfolio",
+        website: "https://portfolio-piyush-one.vercel.app",
+        image: "/portfolio.png",
+        tech: ["NextJS", "GSAP", "UI/UX"]
     }
 ];
 
